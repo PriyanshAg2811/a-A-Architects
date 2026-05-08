@@ -69,26 +69,26 @@ export function HeroSection() {
         style={{ y: contentY }}
       >
         <div className="max-w-2xl">
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.1}>
             <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
               Architecture & Design Studio
             </p>
           </FadeIn>
 
           <div className="mb-6">
-            <TextReveal delay={0.4}>
+            <TextReveal delay={0.2}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-tight">
                 Designing Spaces That
               </h1>
             </TextReveal>
-            <TextReveal delay={0.5}>
+            <TextReveal delay={0.3}>
               <span className="text-4xl md:text-6xl lg:text-7xl italic font-normal">
                 Inspire
               </span>
             </TextReveal>
           </div>
 
-          <FadeIn delay={0.7}>
+          <FadeIn delay={0.4}>
             <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
               Award-winning architectural practice specializing in modern
               residential and commercial design. We craft environments that
@@ -96,7 +96,7 @@ export function HeroSection() {
             </p>
           </FadeIn>
 
-          <FadeIn delay={0.9}>
+          <FadeIn delay={0.5}>
             <div className="flex flex-col sm:flex-row gap-4">
               <MagneticButton>
                 <Button size="lg" className="px-8 group">
@@ -125,7 +125,7 @@ export function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
+        transition={{ delay: 0.7, duration: 0.8 }}
       >
         <motion.div
           className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2"
@@ -138,18 +138,6 @@ export function HeroSection() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
-      </motion.div>
-
-      {/* Side Text */}
-      <motion.div
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden lg:block"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <p className="text-xs uppercase tracking-widest text-muted-foreground vertical-text">
-          Scroll to Explore
-        </p>
       </motion.div>
 
       <style jsx>{`

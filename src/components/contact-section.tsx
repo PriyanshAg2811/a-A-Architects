@@ -1,18 +1,19 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { FormEvent, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FadeIn, TextReveal } from "./text-reveal";
-import { MagneticButton } from "./magnetic-button";
+import { RippleButton } from "./ui/ripple-button";
+import { NoiseTexture } from "./ui/noise-texture";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
-    projectType: "",
+    company: "",
     message: "",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -21,7 +22,7 @@ export function ContactSection() {
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { once: true });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -34,15 +35,15 @@ export function ContactSection() {
     // Reset after showing success
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: "", email: "", projectType: "", message: "" });
+      setFormData({ fullName: "", email: "", company: "", message: "" });
     }, 3000);
   };
 
   const inputClasses =
-    "bg-transparent border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40 focus-visible:ring-primary-foreground/50 transition-all duration-300";
+    "bg-transparent border-border text-foreground placeholder:text-foreground/50 focus-visible:ring-foreground/25 transition-all duration-300";
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-primary text-primary-foreground overflow-hidden">
+    <section id="contact" className="py-24 md:py-32 bg-background text-foreground overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left Column */}
@@ -78,81 +79,63 @@ export function ContactSection() {
                 },
               }}
             >
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, x: -20 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-              >
                 <p className="text-xs uppercase tracking-widest opacity-50 mb-1">
                   Email
                 </p>
-                <motion.a
+                <a
                   href="mailto:studio@elenavasquez.com"
                   className="hover:opacity-70 transition-opacity inline-block"
-                  whileHover={{ x: 5 }}
                 >
                   studio@elenavasquez.com
-                </motion.a>
-              </motion.div>
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, x: -20 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-              >
+                </a>
                 <p className="text-xs uppercase tracking-widest opacity-50 mb-1">
                   Phone
                 </p>
-                <motion.a
+                <a
                   href="tel:+12125551234"
                   className="hover:opacity-70 transition-opacity inline-block"
-                  whileHover={{ x: 5 }}
                 >
                   +1 (212) 555-1234
-                </motion.a>
-              </motion.div>
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, x: -20 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-              >
+                </a>
                 <p className="text-xs uppercase tracking-widest opacity-50 mb-1">
                   Address
                 </p>
-                <motion.p whileHover={{ x: 5 }} className="inline-block">
+                <p className="inline-block">
                   450 West 15th Street
                   <br />
                   New York, NY 10011
-                </motion.p>
+                </p>
               </motion.div>
-            </motion.div>
 
             {/* Social Links with Hover Effect */}
             <motion.div
-              className="flex gap-6 mt-12"
+              className="flex gap-6 mt-6"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
             >
-              {["Instagram", "LinkedIn", "Pinterest"].map((social) => (
-                <motion.a
-                  key={social}
-                  href="#"
-                  className="text-xs uppercase tracking-widest hover:opacity-70 transition-opacity relative group"
-                  whileHover={{ y: -2 }}
-                >
-                  {social}
-                  <motion.span
-                    className="absolute -bottom-1 left-0 w-full h-px bg-primary-foreground"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.a>
-              ))}
+              <motion.a
+                href="#"
+                className="hover:opacity-70 transition-opacity relative group"
+                whileHover={{ y: -2 }}
+              >
+                 <img src="/instagram-svgrepo-com.svg" alt="Instagram" className="w-5 h-5 dark:invert md:w-7 md:h-7" />
+              </motion.a>
+              <motion.a
+                href="#"
+                className="hover:opacity-70 transition-opacity relative group"
+                whileHover={{ y: -2 }}
+              >
+                 <img src="/linkedin-svgrepo-com.svg" alt="LinkedIn" className="w-5 h-5 dark:invert md:w-7 md:h-7" />
+              </motion.a>
+              <motion.a
+                href="#"
+                className="hover:opacity-70 transition-opacity relative group"
+                whileHover={{ y: -2 }}
+              >
+                 <img src="/twitter-154-svgrepo-com.svg" alt="Twitter" className="w-5 h-5 dark:invert md:w-7 md:h-7" />
+              </motion.a>
             </motion.div>
           </div>
 
@@ -161,190 +144,94 @@ export function ContactSection() {
             <motion.form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="space-y-6 relative"
-              initial={{ opacity: 0, y: 50 }}
+              className="relative rounded-4xl border border-border/50 bg-background/90 p-8 shadow-[0_30px_120px_rgba(0,0,0,0.12)]"
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.75, ease: "easeOut", delay: 0.1 }}
             >
-              {/* Success Overlay */}
-              <motion.div
-                className="absolute inset-0 bg-primary flex items-center justify-center z-10 pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isSubmitted ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.div
-                  className="text-center"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={isSubmitted ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ delay: 0.2 }}
-                >
-                  <motion.div
-                    className="w-16 h-16 mx-auto mb-4 rounded-full border-2 border-primary-foreground flex items-center justify-center"
-                    initial={{ scale: 0 }}
-                    animate={isSubmitted ? { scale: 1 } : {}}
-                    transition={{ delay: 0.3, type: "spring" }}
-                  >
-                    <svg
-                      className="w-8 h-8"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <motion.path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                        initial={{ pathLength: 0 }}
-                        animate={isSubmitted ? { pathLength: 1 } : {}}
-                        transition={{ delay: 0.5, duration: 0.5 }}
-                      />
-                    </svg>
-                  </motion.div>
-                  <p className="text-xl font-light">Message Sent</p>
-                  <p className="text-sm opacity-70 mt-2">
-                    We&apos;ll be in touch soon
-                  </p>
-                </motion.div>
-              </motion.div>
+              {isSubmitted && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-4xl bg-primary/90 text-center text-foreground">
+                  <div className="space-y-3">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-foreground/20 bg-background/90">
+                      <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-xl font-semibold">Message Sent</p>
+                    <p className="text-sm opacity-80">We’ll be in touch soon.</p>
+                  </div>
+                </div>
+              )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <motion.div
-                  animate={{
-                    scale: focusedField === "name" ? 1.02 : 1,
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <label
-                    htmlFor="name"
-                    className="text-xs uppercase tracking-widest opacity-50 mb-2 block"
-                  >
-                    Name
+              <NoiseTexture className="rounded-4xl"/>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="fullName" className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block">
+                    Full name
                   </label>
                   <Input
-                    id="name"
+                    id="fullName"
                     type="text"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    onFocus={() => setFocusedField("name")}
-                    onBlur={() => setFocusedField(null)}
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     className={inputClasses}
-                    placeholder="Your name"
+                    placeholder="Manu Arora"
                     required
                   />
-                </motion.div>
-                <motion.div
-                  animate={{
-                    scale: focusedField === "email" ? 1.02 : 1,
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <label
-                    htmlFor="email"
-                    className="text-xs uppercase tracking-widest opacity-50 mb-2 block"
-                  >
-                    Email
+                </div>
+                <div>
+                  <label htmlFor="email" className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block">
+                    Email Address
                   </label>
                   <Input
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    onFocus={() => setFocusedField("email")}
-                    onBlur={() => setFocusedField(null)}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className={inputClasses}
-                    placeholder="your@email.com"
+                    placeholder="support@aceternity.com"
                     required
                   />
-                </motion.div>
+                </div>
               </div>
 
-              <motion.div
-                animate={{
-                  scale: focusedField === "projectType" ? 1.02 : 1,
-                }}
-                transition={{ duration: 0.2 }}
-              >
-                <label
-                  htmlFor="projectType"
-                  className="text-xs uppercase tracking-widest opacity-50 mb-2 block"
-                >
-                  Project Type
+              <div className="mt-6">
+                <label htmlFor="company" className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block">
+                  Company
                 </label>
                 <Input
-                  id="projectType"
+                  id="company"
                   type="text"
-                  value={formData.projectType}
-                  onChange={(e) =>
-                    setFormData({ ...formData, projectType: e.target.value })
-                  }
-                  onFocus={() => setFocusedField("projectType")}
-                  onBlur={() => setFocusedField(null)}
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   className={inputClasses}
-                  placeholder="Residential, Commercial, Renovation..."
+                  placeholder="Aceternity Labs LLC"
                 />
-              </motion.div>
+              </div>
 
-              <motion.div
-                animate={{
-                  scale: focusedField === "message" ? 1.02 : 1,
-                }}
-                transition={{ duration: 0.2 }}
-              >
-                <label
-                  htmlFor="message"
-                  className="text-xs uppercase tracking-widest opacity-50 mb-2 block"
-                >
+              <div className="mt-6">
+                <label htmlFor="message" className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block">
                   Message
                 </label>
                 <Textarea
                   id="message"
                   value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  onFocus={() => setFocusedField("message")}
-                  onBlur={() => setFocusedField(null)}
-                  className={`${inputClasses} min-h-[150px]`}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className={`${inputClasses} min-h-37.5`}
                   placeholder="Tell us about your project..."
                   required
                 />
-              </motion.div>
+              </div>
 
-              <MagneticButton strength={15}>
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  size="lg"
-                  className="w-full sm:w-auto px-12 relative overflow-hidden group"
-                  disabled={isSubmitting}
-                >
-                  <motion.span
-                    className="relative z-10"
-                    animate={{ opacity: isSubmitting ? 0 : 1 }}
-                  >
-                    Send Message
-                  </motion.span>
-                  {isSubmitting && (
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    >
-                      <motion.div
-                        className="w-5 h-5 border-2 border-foreground/30 border-t-foreground rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
-                    </motion.div>
-                  )}
-                </Button>
-              </MagneticButton>
+              <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                  Ready to collaborate?
+                </p>
+                <RippleButton type="submit" className="px-10" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Submit"}
+                </RippleButton>
+              </div>
             </motion.form>
           </div>
         </div>

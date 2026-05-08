@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -32,6 +34,10 @@ export function Header() {
       document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = [
     { href: "#work", label: "Work" },
@@ -89,11 +95,22 @@ export function Header() {
                 >
                   {link.label}
                   <motion.span
-                    className="absolute -bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300"
+                    className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300"
                   />
                 </Link>
               </motion.div>
             ))}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: navLinks.length * 0.1 }}
+              className="flex flex-col items-center gap-1"
+            >
+              <AnimatedThemeToggler
+              variant="circle"
+              className="text-muted-foreground hover:text-foreground transition-colors "
+              />
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -182,6 +199,9 @@ export function Header() {
                 <p className="text-sm text-muted-foreground">
                   +1 (212) 555-1234
                 </p>
+                <div className="py-2">
+                  <AnimatedThemeToggler variant="circle" className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-sm text-foreground hover:bg-foreground/10 transition-colors" text="Toggle Theme" />
+                </div>
               </motion.div>
             </div>
           </motion.div>

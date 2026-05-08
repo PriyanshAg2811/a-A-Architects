@@ -1,7 +1,7 @@
 import { Header } from "@/components/header";
 import { AboutSection } from "@/components/about-section";
 import { Footer } from "@/components/footer";
-import { CursorFollower } from "@/components/cursor-follower";
+// import { CursorFollower } from "@/components/cursor-follower";
 
 export const metadata = {
   title: 'About | Elena Vasquez',
@@ -11,7 +11,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <CursorFollower />
+      {/* <CursorFollower /> */}
       <Header />
       <main>
         <AboutSection />

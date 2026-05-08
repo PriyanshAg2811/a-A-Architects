@@ -132,7 +132,7 @@ export function ProjectsSection() {
         <FadeIn delay={0.4}>
           <div className="mt-16 text-center">
             <motion.a
-              href="#"
+              href="/projects"
               className="inline-flex items-center gap-2 text-sm uppercase tracking-widest hover:text-muted-foreground transition-colors group"
               data-cursor="Explore"
             >

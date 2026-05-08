@@ -1,7 +1,6 @@
 import { Header } from "@/components/header";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-// import { CursorFollower } from "@/components/cursor-follower";
 
 export const metadata = {
   title: 'Contact | Elena Vasquez',
@@ -11,7 +10,6 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* <CursorFollower /> */}
       <Header />
       <main>
         <ContactSection />

@@ -42,7 +42,7 @@ export function HeroSection() {
       </motion.div>
 
       {/* Animated Grid Lines */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
+      <div className="absolute inset-0 z-1 pointer-events-none">
         <motion.div
           className="absolute left-1/4 top-0 bottom-0 w-px bg-foreground/5"
           initial={{ scaleY: 0 }}

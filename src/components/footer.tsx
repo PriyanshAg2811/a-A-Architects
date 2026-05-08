@@ -36,10 +36,10 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {["Work", "About", "Services", "Contact"].map((item) => (
+            {["Projects", "About", "Services", "Contact"].map((item) => (
               <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={`/${item}`}
                 className="hover:text-foreground transition-colors relative group"
               >
                 {item}

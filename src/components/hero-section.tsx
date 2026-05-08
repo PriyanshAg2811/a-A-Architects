@@ -120,26 +120,6 @@ export function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Animated Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.8 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div
-            className="w-1 h-2 bg-foreground/50 rounded-full"
-            animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-      </motion.div>
-
       <style jsx>{`
         .vertical-text {
           writing-mode: vertical-rl;

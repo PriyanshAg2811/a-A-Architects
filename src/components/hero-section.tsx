@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -99,20 +100,22 @@ export function HeroSection() {
           <FadeIn delay={0.5}>
             <div className="flex flex-col sm:flex-row gap-4">
               <MagneticButton>
-                <Button size="lg" className="px-8 group">
-                  <span>View Projects</span>
-                  <motion.span
-                    className="inline-block ml-2"
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                  >
-                    &rarr;
-                  </motion.span>
+                <Button asChild size="lg" className="px-8 group">
+                  <Link href="/projects">
+                    <span>View Projects</span>
+                    <motion.span
+                      className="inline-block ml-2"
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                    >
+                      &rarr;
+                    </motion.span>
+                  </Link>
                 </Button>
               </MagneticButton>
               <MagneticButton>
-                <Button variant="outline" size="lg" className="px-8">
-                  Get in Touch
+                <Button asChild variant="outline" size="lg" className="px-8">
+                  <Link href="/contact">Get in Touch</Link>
                 </Button>
               </MagneticButton>
             </div>

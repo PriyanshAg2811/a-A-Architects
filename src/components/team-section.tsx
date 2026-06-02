@@ -142,12 +142,7 @@ function TeamMemberCard({ member, index }: TeamMemberCardProps) {
         />
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        whileHover={{ opacity: 1, height: "auto" }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
+      <div className="overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-h-72 group-hover:opacity-100">
         <div className="mb-3">
           <h4 className="text-lg font-medium">{member.name}</h4>
           <p className="text-sm text-accent uppercase tracking-widest mb-2">
@@ -160,7 +155,7 @@ function TeamMemberCard({ member, index }: TeamMemberCardProps) {
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
           {member.bio}
         </p>
-      </motion.div>
+      </div>
 
       {/* Always visible info */}
       <div className="group-hover:hidden">

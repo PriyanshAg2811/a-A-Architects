@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedCounter } from "./animated-counter";
 import { FadeIn, TextReveal, StaggerChildren, staggerChildVariants } from "./text-reveal";
-import { aboutStats } from "@/app/lib/team";
+import { aboutStats } from "@/lib/team";
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);

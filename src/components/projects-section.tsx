@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/app/lib/projects";
+import { projects } from "@/lib/projects";
 import { motion } from "framer-motion";
 
 export function ProjectsSection() {

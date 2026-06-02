@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeIn, TextReveal, StaggerChildren, staggerChildVariants } from "./text-reveal";
-import { founder, teamMembers, type TeamMember } from "@/app/lib/team";
+import { founder, teamMembers, type TeamMember } from "@/lib/team";
 
 export function TeamSection() {
   return (

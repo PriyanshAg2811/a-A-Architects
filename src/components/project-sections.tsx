@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import type { Project } from "@/app/lib/projects";
+import type { Project } from "@/lib/projects";
+import { BlurFade } from "./ui/blur-fade";
 
 interface ProjectSectionsProps {
   project: Project;
@@ -26,6 +27,7 @@ export function ProjectSections({ project }: ProjectSectionsProps) {
             <div className="grid md:grid-cols-12 gap-10 items-start">
               <div className={isReversed ? "md:col-span-4 md:order-last" : "md:col-span-8"}>
                 <div className="overflow-hidden rounded-4xl shadow-[0_40px_120px_rgba(0,0,0,0.08)]">
+                    <BlurFade>
                   <Image
                     src={section.image}
                     alt={`${project.title} section ${index + 1}`}
@@ -33,6 +35,7 @@ export function ProjectSections({ project }: ProjectSectionsProps) {
                     height={1200}
                     className="w-full h-auto object-cover"
                   />
+                    </BlurFade>
                 </div>
               </div>
 

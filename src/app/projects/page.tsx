@@ -1,6 +1,7 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ProjectsSection } from "@/components/projects-section";
+import { NoiseTexture } from "@/components/ui/noise-texture";
 
 export const metadata = {
   title: 'Projects | Elena Vasquez',

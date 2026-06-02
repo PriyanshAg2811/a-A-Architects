@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ProjectSections } from "@/components/project-sections";
-import { projects } from "@/app/lib/projects";
+import { projects } from "@/lib/projects";
 
 export default async function ProjectPage({
   params,

@@ -8,7 +8,7 @@ export type TeamMember = {
 };
 
 export const founder = {
-  name: "Elena Vasquez",
+  name: "a+A Architects",
   position: "Principal Architect & Founder",
   bio: "With over 15 years of experience in contemporary architecture, Elena founded the studio with a vision to create spaces that harmonize innovation with environmental consciousness. Her work has been recognized internationally and featured in leading architecture publications.",
   image: "/images/founder.png",

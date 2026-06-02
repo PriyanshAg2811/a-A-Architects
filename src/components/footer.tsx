@@ -18,7 +18,7 @@ export function Footer() {
             transition={{ duration: 0.5 }}
           >
             <Link href="/" className="text-lg font-medium group relative inline-block">
-              Elena Vasquez
+              a+A Architects
               <motion.span
                 className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300"
               />
@@ -58,7 +58,7 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            &copy; {currentYear} Elena Vasquez Architects. All rights reserved.
+            &copy; {currentYear} a+A Architects Architects. All rights reserved.
           </motion.p>
         </div>
 

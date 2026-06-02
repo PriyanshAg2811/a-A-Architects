@@ -4,7 +4,7 @@ import { ProjectsSection } from "@/components/projects-section";
 import { NoiseTexture } from "@/components/ui/noise-texture";
 
 export const metadata = {
-  title: 'Projects | Elena Vasquez',
+  title: 'Projects | a+A Architects',
   description: 'Explore our award-winning architecture projects. Modern residential and commercial designs.',
 };
 

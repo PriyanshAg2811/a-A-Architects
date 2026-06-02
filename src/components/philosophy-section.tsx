@@ -69,7 +69,7 @@ export function PhilosophySection() {
               transition={{ delay: 0.6 }}
               className="mt-12"
             >
-              <p className="text-lg font-light italic">Elena Vasquez</p>
+              <p className="text-lg font-light italic">a+A Architects</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 Founder & Principal Architect
               </p>

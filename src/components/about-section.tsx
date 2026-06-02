@@ -119,7 +119,7 @@ export function AboutSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  Elena Vasquez
+                  a+A Architects
                 </motion.p>
                 <motion.p
                   className="text-sm text-muted-foreground"

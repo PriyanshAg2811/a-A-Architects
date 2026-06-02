@@ -65,7 +65,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              Elena Vasquez
+              a+A Architects
             </motion.span>
             <motion.span
               className="block text-xs text-muted-foreground tracking-widest uppercase"
@@ -73,7 +73,7 @@ export function Header() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Architect
+              Architecture & Design Studio
             </motion.span>
             <motion.span
               className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300"

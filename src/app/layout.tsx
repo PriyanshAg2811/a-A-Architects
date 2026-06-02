@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Elena Vasquez | Architect',
+  title: 'a+A Architects | Architect',
   description: 'Award-winning architecture studio specializing in modern residential and commercial design. Creating spaces that inspire.',
   generator: 'v0.app',
   icons: {

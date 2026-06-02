@@ -5,8 +5,8 @@ import { Footer } from "@/components/footer";
 // import { CursorFollower } from "@/components/cursor-follower";
 
 export const metadata = {
-  title: 'About | Elena Vasquez',
-  description: 'Learn about Elena Vasquez and our architecture studio. Our philosophy and approach to design.',
+  title: 'About | a+A Architects',
+  description: 'Learn about a+A Architects and our architecture studio. Our philosophy and approach to design.',
 };
 
 export default function AboutPage() {

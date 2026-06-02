@@ -4,13 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedCounter } from "./animated-counter";
 import { FadeIn, TextReveal, StaggerChildren, staggerChildVariants } from "./text-reveal";
-
-const stats = [
-  { value: 15, suffix: "+", label: "Years Experience" },
-  { value: 120, suffix: "+", label: "Projects Completed" },
-  { value: 8, suffix: "", label: "Design Awards" },
-  { value: 12, suffix: "", label: "Team Members" },
-];
+import { aboutStats } from "@/app/lib/team";
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,7 +35,7 @@ export function AboutSection() {
 
             {/* Stats with Animated Counters */}
             <div className="grid grid-cols-2 gap-8 mt-12">
-              {stats.map((stat, index) => (
+              {aboutStats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, x: -20 }}

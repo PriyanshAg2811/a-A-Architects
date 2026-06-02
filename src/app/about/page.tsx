@@ -1,5 +1,6 @@
 import { Header } from "@/components/header";
 import { AboutSection } from "@/components/about-section";
+import { TeamSection } from "@/components/team-section";
 import { Footer } from "@/components/footer";
 // import { CursorFollower } from "@/components/cursor-follower";
 
@@ -15,6 +16,7 @@ export default function AboutPage() {
       <Header />
       <main>
         <AboutSection />
+        <TeamSection />
       </main>
       <Footer />
     </>

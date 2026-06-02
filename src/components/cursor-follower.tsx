@@ -89,7 +89,7 @@ export function CursorFollower() {
           height: isHovering ? 80 : 0,
           opacity: isHovering && isVisible ? 1 : 0,
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
       >
         <div className="w-full h-full rounded-full bg-accent flex items-center justify-center">
           <span className="text-accent-foreground text-xs font-medium uppercase tracking-wide">

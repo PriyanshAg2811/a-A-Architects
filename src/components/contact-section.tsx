@@ -147,7 +147,7 @@ export function ContactSection() {
               className="relative rounded-4xl border border-border/50 bg-background/90 p-8 shadow-[0_30px_120px_rgba(0,0,0,0.12)]"
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.75, ease: "easeOut", delay: 0.1 }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: 0.1 }}
             >
               {isSubmitted && (
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-4xl bg-primary/90 text-center text-foreground">

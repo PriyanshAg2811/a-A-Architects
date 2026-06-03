@@ -39,7 +39,7 @@ export function Footer() {
             {["Projects", "About", "Services", "Contact"].map((item) => (
               <Link
                 key={item}
-                href={`/${item}`}
+                href={`/${item.toLowerCase()}`}
                 className="hover:text-foreground transition-colors relative group"
               >
                 {item}
@@ -58,7 +58,7 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            &copy; {currentYear} a+A Architects Architects. All rights reserved.
+            &copy; {currentYear} a+A Architects. All rights reserved.
           </motion.p>
         </div>
 

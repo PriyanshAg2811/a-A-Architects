@@ -27,7 +27,7 @@ export function HeroSection() {
     >
       {/* Parallax Background Image */}
       <motion.div className="absolute inset-0 z-0" style={{ y: imageY }}>
-        <motion.div style={{ scale: imageScale }} className="w-full h-full">
+        <motion.div style={{ scale: imageScale }} className="relative w-full h-full">
           <Image
             src="/images/hero-architecture.jpg"
             alt="Modern architectural design"

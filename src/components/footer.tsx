@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { navLinks } from "./header";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -36,13 +37,13 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {["Projects", "About", "Services", "Contact"].map((item) => (
+            {navLinks.map((link) => (
               <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
+                key={link.href}
+                href={link.href}
                 className="hover:text-foreground transition-colors relative group"
               >
-                {item}
+                {link.label}
                 <motion.span
                   className="absolute -bottom-1 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300"
                 />

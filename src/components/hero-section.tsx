@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MagneticButton } from "./magnetic-button";
 import { TextReveal, FadeIn } from "./text-reveal";
 
@@ -19,6 +19,23 @@ export function HeroSection() {
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const updateTheme = () => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -29,7 +46,7 @@ export function HeroSection() {
       <motion.div className="absolute inset-0 z-0" style={{ y: imageY }}>
         <motion.div style={{ scale: imageScale }} className="relative w-full h-full">
           <Image
-            src="/images/hero-architecture.jpg"
+            src={isDarkMode ? "/images/hero/hero-dark.png" : "/images/hero/hero-light.png"}
             alt="Modern architectural design"
             fill
             className="object-cover"
@@ -37,7 +54,7 @@ export function HeroSection() {
           />
         </motion.div>
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/30"
+          className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-background/30"
           style={{ opacity: overlayOpacity }}
         />
       </motion.div>

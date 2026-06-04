@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useRef } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { FadeIn, TextReveal } from "./text-reveal";
 
@@ -131,7 +132,7 @@ export function ProjectsSection() {
         {/* View All Link */}
         <FadeIn delay={0.4}>
           <div className="mt-16 text-center">
-            <motion.a
+            <Link
               href="/projects"
               className="inline-flex items-center gap-2 text-sm uppercase tracking-widest hover:text-muted-foreground transition-colors group"
               data-cursor="Explore"
@@ -152,7 +153,7 @@ export function ProjectsSection() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </motion.svg>
-            </motion.a>
+            </Link>
           </div>
         </FadeIn>
       </div>

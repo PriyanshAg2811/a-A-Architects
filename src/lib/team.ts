@@ -7,12 +7,22 @@ export type TeamMember = {
   image: string;
 };
 
-export const founder = {
-  name: "a+A Architects",
-  position: "Principal Architect & Founder",
-  bio: "With over 15 years of experience in contemporary architecture, Elena founded the studio with a vision to create spaces that harmonize innovation with environmental consciousness. Her work has been recognized internationally and featured in leading architecture publications.",
-  image: "/images/founder.png",
-};
+export const coFounders = [
+  {
+    name: "Priyanshu Agarwal",
+    position: "Principal Architect & Founder",
+    bio: "With over 15 years of experience in contemporary architecture, Elena founded the studio with a vision to create spaces that harmonize innovation with environmental consciousness. Her work has been recognized internationally and featured in leading architecture publications.",
+    image:
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780493940/team_1_xqyycz.jpg",
+  },
+  {
+    name: "Priyanshu Agarwal",
+    position: "Principal Architect & Founder",
+    bio: "With over 15 years of experience in contemporary architecture, Elena founded the studio with a vision to create spaces that harmonize innovation with environmental consciousness. Her work has been recognized internationally and featured in leading architecture publications.",
+    image:
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780494732/Team_2_hand_folded_nzzhcx.png",
+  },
+];
 
 export const teamMembers: TeamMember[] = [
   {
@@ -21,7 +31,8 @@ export const teamMembers: TeamMember[] = [
     position: "Senior Architect",
     experience: "12 years",
     bio: "Specializing in commercial architecture and urban design. Marcus brings a wealth of experience in large-scale projects and sustainable building practices.",
-    image: "/images/team-1.png",
+    image:
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780494732/Team_2_hand_folded_nzzhcx.png",
   },
   {
     id: 2,

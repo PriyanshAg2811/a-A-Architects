@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedCounter } from "./animated-counter";
 import { FadeIn, TextReveal, StaggerChildren, staggerChildVariants } from "./text-reveal";
@@ -14,6 +15,23 @@ export function AboutSection() {
   });
 
   const lineScale = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const updateTheme = () => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section ref={sectionRef} id="about" className="py-24 md:py-32 bg-background overflow-hidden">
@@ -33,7 +51,7 @@ export function AboutSection() {
               </h2>
             </TextReveal>
 
-            {/* Stats with Animated Counters */}
+            {/* Stats with Animated Counters
             <div className="grid grid-cols-2 gap-8 mt-12">
               {aboutStats.map((stat, index) => (
                 <motion.div
@@ -44,11 +62,11 @@ export function AboutSection() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="relative pl-4"
                 >
-                  {/* Animated Border */}
-                  <motion.div
-                    className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent origin-top"
-                    style={{ scaleY: lineScale }}
-                  />
+                  // Animated Border
+                  // <motion.div
+                  //   className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent origin-top"
+                  //   style={{ scaleY: lineScale }}
+                  // />
                   <p className="text-3xl md:text-4xl font-light">
                     <AnimatedCounter
                       value={stat.value}
@@ -61,6 +79,17 @@ export function AboutSection() {
                   </p>
                 </motion.div>
               ))}
+            </div>
+            */}
+
+            <div className="mt-12 overflow-hidden rounded-4xl">
+              <Image
+                src={isDarkMode ? "/images/about/about-dark.png" : "/images/about/about-light.png"}
+                alt="Architecture studio workspace"
+                width={1200}
+                height={900}
+                className="w-full h-auto object-cover"
+              />
             </div>
           </div>
 

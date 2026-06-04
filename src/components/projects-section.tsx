@@ -13,7 +13,7 @@ export function ProjectsSection() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <p className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
-                a+A Architects — Selected Work
+                a+A ARchitects — Selected Work
               </p>
               <h1
                 className="text-5xl md:text-7xl font-light leading-none tracking-tight"

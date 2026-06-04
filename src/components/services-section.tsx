@@ -1,59 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn, TextReveal } from "./text-reveal";
-
-const services = [
-  {
-    number: "01",
-    title: "Architectural Design",
-    description:
-      "Comprehensive design services from concept to construction documents, creating spaces that balance aesthetics with functionality.",
-    expanded:
-      "We guide projects through every phase: programming, schematic design, design development, and construction documentation. Our collaborative process ensures your vision is realized with precision.",
-  },
-  {
-    number: "02",
-    title: "Interior Architecture",
-    description:
-      "Thoughtful interior spaces that complement the architectural vision, selecting materials, finishes, and details with precision.",
-    expanded:
-      "From custom millwork to lighting design, we craft interiors that enhance daily life. Every material choice is intentional, creating cohesive environments that age gracefully.",
-  },
-  {
-    number: "03",
-    title: "Master Planning",
-    description:
-      "Strategic planning for large-scale developments, considering context, sustainability, and community impact.",
-    expanded:
-      "We develop comprehensive frameworks for campuses, mixed-use developments, and urban districts that balance density with livability and economic viability.",
-  },
-  {
-    number: "04",
-    title: "Renovation & Restoration",
-    description:
-      "Breathing new life into existing structures while honoring their history and enhancing their potential.",
-    expanded:
-      "Whether adapting historic buildings for contemporary use or modernizing mid-century homes, we respect original character while meeting current needs.",
-  },
-  {
-    number: "05",
-    title: "Sustainable Design",
-    description:
-      "Integrating environmental responsibility into every project through energy-efficient systems and sustainable materials.",
-    expanded:
-      "Our approach incorporates passive solar design, high-performance envelopes, and renewable energy systems to minimize environmental impact and operational costs.",
-  },
-  {
-    number: "06",
-    title: "Project Management",
-    description:
-      "End-to-end project oversight ensuring quality, budget adherence, and timely delivery of your vision.",
-    expanded:
-      "We coordinate with contractors, consultants, and craftspeople to navigate the complexities of construction, advocating for your interests at every stage.",
-  },
-];
+import { services } from "../lib/services";
 
 export function ServicesSection() {
   const [expandedService, setExpandedService] = useState<string | null>(null);
@@ -83,7 +34,7 @@ export function ServicesSection() {
         </div>
 
         {/* Services Grid - Accordion Style */}
-        <div className="space-y-px bg-border">
+        <div className="space-y-px bg-border whitespace-pre-line">
           {services.map((service, index) => (
             <ServiceCard
               key={service.number}
@@ -174,13 +125,13 @@ function ServiceCard({ service, index, isExpanded, onToggle }: ServiceCardProps)
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <motion.a
-                      href="#contact"
+                    <motion.div
                       className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors"
                       whileHover={{ x: 5 }}
                     >
-                      Learn more
-                      <svg
+                      <Link href="/contact" className="inline-flex items-center gap-2">
+                        Learn more
+                        <svg
                         className="w-4 h-4"
                         fill="none"
                         stroke="currentColor"
@@ -193,7 +144,8 @@ function ServiceCard({ service, index, isExpanded, onToggle }: ServiceCardProps)
                           d="M17 8l4 4m0 0l-4 4m4-4H3"
                         />
                       </svg>
-                    </motion.a>
+                      </Link>
+                    </motion.div>
                   </motion.div>
                 </motion.div>
               )}

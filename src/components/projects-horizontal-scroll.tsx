@@ -1,55 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn, TextReveal } from "./text-reveal";
-
-const projects = [
-  {
-    id: 1,
-    title: "Alpine Retreat",
-    category: "Residential",
-    location: "Aspen, Colorado",
-    year: "2024",
-    image: "/images/project-1.jpg",
-    description:
-      "A sustainable mountain home blending seamlessly with its natural surroundings.",
-  },
-  {
-    id: 2,
-    title: "Urban Axis Tower",
-    category: "Commercial",
-    location: "Chicago, Illinois",
-    year: "2023",
-    image: "/images/project-2.jpg",
-    description:
-      "A 40-story office complex redefining the city skyline with innovative design.",
-  },
-  {
-    id: 3,
-    title: "The Glass Pavilion",
-    category: "Residential",
-    location: "Malibu, California",
-    year: "2023",
-    image: "/images/project-3.jpg",
-    description:
-      "Open-concept living space celebrating natural light and ocean views.",
-  },
-  {
-    id: 4,
-    title: "Coastal Sanctuary",
-    category: "Residential",
-    location: "Santorini, Greece",
-    year: "2022",
-    image: "/images/project-4.jpg",
-    description:
-      "Mediterranean-inspired luxury villa with contemporary minimalism.",
-  },
-];
+import { projects } from "@/lib/projects";
 
 export function ProjectsHorizontalScroll() {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -73,6 +32,8 @@ export function ProjectsHorizontalScroll() {
     container.addEventListener("scroll", handleScroll, { passive: true });
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const mainProjects = projects.filter((project) => project.isMain);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -103,7 +64,7 @@ export function ProjectsHorizontalScroll() {
     });
   };
 
-  const infiniteProjects = [...projects, ...projects];
+  const infiniteProjects = [...mainProjects, ...mainProjects];
 
   return (
     <section id="work" className="py-24 md:py-32 bg-card overflow-hidden">
@@ -137,10 +98,10 @@ export function ProjectsHorizontalScroll() {
           >
             {infiniteProjects.map((project, index) => (
               <HorizontalProjectCard
-                key={`${project.id}-${index}`}
+                key={`${project.slug}-${index}`}
                 project={project}
-                isHovered={hoveredProject === project.id}
-                onHover={() => setHoveredProject(project.id)}
+                isHovered={hoveredProject === project.slug}
+                onHover={() => setHoveredProject(project.slug)}
                 onLeave={() => setHoveredProject(null)}
               />
             ))}
@@ -167,11 +128,7 @@ export function ProjectsHorizontalScroll() {
 
         <FadeIn delay={0.4}>
           <div className="mt-12 text-center">
-            <motion.a
-              href="/projects"
-              className="inline-flex items-center gap-2 text-sm uppercase tracking-widest hover:text-muted-foreground transition-colors group"
-              data-cursor="Explore"
-            >
+            <Link href="/projects" className="inline-flex items-center gap-2 text-sm uppercase tracking-widest hover:text-muted-foreground transition-colors group" data-cursor="Explore">
               View All Projects
               <motion.svg
                 className="w-4 h-4"
@@ -188,7 +145,7 @@ export function ProjectsHorizontalScroll() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </motion.svg>
-            </motion.a>
+            </Link>
           </div>
         </FadeIn>
       </div>
@@ -205,7 +162,8 @@ interface HorizontalProjectCardProps {
 
 function HorizontalProjectCard({ project, isHovered, onHover, onLeave }: HorizontalProjectCardProps) {
   return (
-    <motion.article
+    <Link href={`/projects/${project.slug}`} className="block">
+      <motion.article
       className="shrink-0 w-80 md:w-96 group cursor-pointer"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
@@ -219,7 +177,7 @@ function HorizontalProjectCard({ project, isHovered, onHover, onLeave }: Horizon
           animate={{ scale: isHovered ? 1.12 : 1 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Image src={project.image} alt={project.title} fill className="object-cover" />
+          <Image src={project.thumbnail} alt={project.title} fill className="object-cover" />
         </motion.div>
 
         <motion.div
@@ -241,7 +199,7 @@ function HorizontalProjectCard({ project, isHovered, onHover, onLeave }: Horizon
             animate={{ y: isHovered ? 0 : 20 }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            {project.description}
+            {project.title}
           </motion.p>
         </motion.div>
       </motion.div>
@@ -265,5 +223,6 @@ function HorizontalProjectCard({ project, isHovered, onHover, onLeave }: Horizon
         </div>
       </div>
     </motion.article>
+    </Link>
   );
 }

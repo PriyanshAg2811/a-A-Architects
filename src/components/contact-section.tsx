@@ -123,6 +123,8 @@ export function ContactSection() {
                   href={social.href}
                   className="hover:opacity-70 transition-opacity relative group"
                   whileHover={{ y: -2 }}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={social.icon} alt={social.label} className="w-5 h-5 dark:invert md:w-7 md:h-7" />
                 </motion.a>
@@ -188,7 +190,7 @@ export function ContactSection() {
 
               <div className="mt-6">
                 <label htmlFor="company" className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block">
-                  Company
+                  Phone Number
                 </label>
                 <Input
                   id="company"
@@ -196,7 +198,7 @@ export function ContactSection() {
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   className={inputClasses}
-                  placeholder="Aceternity Labs LLC"
+                  placeholder=""
                 />
               </div>
 

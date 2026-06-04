@@ -2,9 +2,21 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
+
+export const navLinks = [
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/contact", label: "Contact" },
+];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,13 +51,6 @@ export function Header() {
     setMounted(true);
   }, []);
 
-  const navLinks = [
-    { href: "/projects", label: "Projects" },
-    { href: "/about", label: "About" },
-    { href: "/services", label: "Services" },
-    { href: "/contact", label: "Contact" },
-  ];
-
   return (
     <>
       <motion.header
@@ -59,7 +64,10 @@ export function Header() {
         transition={{ duration: 0.3 }}
       >
         <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-medium tracking-tight relative group">
+          <Link
+            href="/"
+            className="text-xl font-medium tracking-tight relative group"
+          >
             <motion.span
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -75,9 +83,7 @@ export function Header() {
             >
               Architecture & Design Studio
             </motion.span>
-            <motion.span
-              className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300"
-            />
+            <motion.span className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -94,9 +100,7 @@ export function Header() {
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors relative group py-2"
                 >
                   {link.label}
-                  <motion.span
-                    className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300"
-                  />
+                  <motion.span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
                 </Link>
               </motion.div>
             ))}
@@ -107,8 +111,8 @@ export function Header() {
               className="flex flex-col items-center gap-1"
             >
               <AnimatedThemeToggler
-              variant="circle"
-              className="text-muted-foreground hover:text-foreground transition-colors "
+                variant="circle"
+                className="text-muted-foreground hover:text-foreground transition-colors "
               />
             </motion.div>
           </div>
@@ -200,7 +204,11 @@ export function Header() {
                   +1 (212) 555-1234
                 </p>
                 <div className="py-2">
-                  <AnimatedThemeToggler variant="circle" className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-sm text-foreground hover:bg-foreground/10 transition-colors" text="Toggle Theme" />
+                  <AnimatedThemeToggler
+                    variant="circle"
+                    className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-sm text-foreground hover:bg-foreground/10 transition-colors"
+                    text="Toggle Theme"
+                  />
                 </div>
               </motion.div>
             </div>

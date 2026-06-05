@@ -77,7 +77,9 @@ export function ProjectsHorizontalScroll() {
               </p>
             </FadeIn>
             <TextReveal>
-              <h2 className="text-3xl md:text-4xl font-light">Featured Projects</h2>
+              <h2 className="text-3xl md:text-4xl font-light">
+                Featured Projects
+              </h2>
             </TextReveal>
           </div>
           <FadeIn delay={0.2}>
@@ -111,8 +113,18 @@ export function ProjectsHorizontalScroll() {
             onClick={() => scroll("left")}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
 
@@ -120,15 +132,29 @@ export function ProjectsHorizontalScroll() {
             onClick={() => scroll("right")}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
 
         <FadeIn delay={0.4}>
           <div className="mt-12 text-center">
-            <Link href="/projects" className="inline-flex items-center gap-2 text-sm uppercase tracking-widest hover:text-muted-foreground transition-colors group" data-cursor="Explore">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 text-sm uppercase tracking-widest hover:text-muted-foreground transition-colors group"
+              data-cursor="Explore"
+            >
               View All Projects
               <motion.svg
                 className="w-4 h-4"
@@ -160,69 +186,79 @@ interface HorizontalProjectCardProps {
   onLeave: () => void;
 }
 
-function HorizontalProjectCard({ project, isHovered, onHover, onLeave }: HorizontalProjectCardProps) {
+function HorizontalProjectCard({
+  project,
+  isHovered,
+  onHover,
+  onLeave,
+}: HorizontalProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`} className="block">
       <motion.article
-      className="shrink-0 w-80 md:w-96 group cursor-pointer"
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-      data-cursor="View"
-      whileHover={{ y: -12 }}
-      transition={{ duration: 0.3 }}
-    >
-      <motion.div className="relative aspect-4/3 overflow-hidden rounded-lg mb-4">
-        <motion.div
-          className="absolute inset-0"
-          animate={{ scale: isHovered ? 1.12 : 1 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Image src={project.thumbnail} alt={project.title} fill className="object-cover" />
-        </motion.div>
-
-        <motion.div
-          className="absolute inset-0 bg-foreground/40 rounded-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        />
-
-        <motion.div
-          className="absolute inset-0 flex items-end p-4 rounded-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.p
-            className="text-card text-xs max-w-xs leading-relaxed"
-            initial={{ y: 20 }}
-            animate={{ y: isHovered ? 0 : 20 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+        className="shrink-0 w-80 md:w-96 group cursor-pointer"
+        onMouseEnter={onHover}
+        onMouseLeave={onLeave}
+        data-cursor="View"
+        whileHover={{ y: -12 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.div className="relative aspect-4/3 overflow-hidden rounded-lg mb-4">
+          <motion.div
+            className="absolute inset-0"
+            animate={{ scale: isHovered ? 1.12 : 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            {project.title}
-          </motion.p>
-        </motion.div>
-      </motion.div>
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              className="object-cover transition-all duration-500 group-hover:scale-105 dark:brightness-75 dark:saturate-90"
+            />
+          </motion.div>
 
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <motion.h3
-            className="text-lg font-medium"
-            animate={{ x: isHovered ? 5 : 0 }}
+          <motion.div
+            className="absolute inset-0 bg-foreground/40 rounded-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+          />
+
+          <motion.div
+            className="absolute inset-0 flex items-end p-4 rounded-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
           >
-            {project.title}
-          </motion.h3>
-          <p className="text-xs text-muted-foreground">{project.location}</p>
+            <motion.p
+              className="text-card text-xs max-w-xs leading-relaxed"
+              initial={{ y: 20 }}
+              animate={{ y: isHovered ? 0 : 20 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              {project.title}
+            </motion.p>
+          </motion.div>
+        </motion.div>
+
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <motion.h3
+              className="text-lg font-medium"
+              animate={{ x: isHovered ? 5 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {project.title}
+            </motion.h3>
+            <p className="text-xs text-muted-foreground">{project.location}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              {project.category}
+            </p>
+            <p className="text-xs text-muted-foreground">{project.year}</p>
+          </div>
         </div>
-        <div className="text-right">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            {project.category}
-          </p>
-          <p className="text-xs text-muted-foreground">{project.year}</p>
-        </div>
-      </div>
-    </motion.article>
+      </motion.article>
     </Link>
   );
 }

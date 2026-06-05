@@ -13,14 +13,14 @@ export const coFounders = [
     position: "Principal Architect & Founder",
     bio: "With over 15 years of experience in contemporary architecture, Elena founded the studio with a vision to create spaces that harmonize innovation with environmental consciousness. Her work has been recognized internationally and featured in leading architecture publications.",
     image:
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780493940/team_1_xqyycz.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780650363/team_1_copy_2_ecxtfg.png",
   },
   {
     name: "Priyanshu Agarwal",
     position: "Principal Architect & Founder",
     bio: "With over 15 years of experience in contemporary architecture, Elena founded the studio with a vision to create spaces that harmonize innovation with environmental consciousness. Her work has been recognized internationally and featured in leading architecture publications.",
     image:
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780494732/Team_2_hand_folded_nzzhcx.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780653618/copy_of_gemini_generated_image_wh3r1owh3r1owh3r_copy_1_vgxwkr.png",
   },
 ];
 

@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
+import { contactData } from "@/lib/contact";
 
 export const navLinks = [
   { href: "/projects", label: "Projects" },
@@ -197,12 +198,25 @@ export function Header() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-sm text-muted-foreground mb-2">
-                  studio@elenavasquez.com
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  +1 (212) 555-1234
-                </p>
+                <a
+                  href={`mailto:${contactData.email}`}
+                  className="text-sm text-muted-foreground hover:opacity-70 transition-opacity"
+                >
+                  {contactData.email}
+                </a>
+                <div className="text-sm text-muted-foreground">
+                  {contactData.phone.map((phoneNumber, index) => (
+                    <span key={phoneNumber}>
+                      <a
+                        href={`tel:${phoneNumber.replace(/[^0-9+]/g, "")}`}
+                        className="hover:opacity-70 transition-opacity"
+                      >
+                        {phoneNumber}
+                      </a>
+                      {index < contactData.phone.length - 1 && ", "}
+                    </span>
+                  ))}
+                </div>
                 <div className="py-2">
                   <AnimatedThemeToggler
                     variant="circle"

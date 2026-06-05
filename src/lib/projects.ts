@@ -163,4 +163,92 @@ export const projects: Project[] = [
     ],
     isMain: true,
   },
+  {
+    slug: "tidal-house2",
+    title: "Tidal House1",
+    category: "Residential",
+    location: "Hokkaido, Japan",
+    year: "2022",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606426/shailesh_ji_residence_sketch_qlruld.png",
+    sections: [
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606225/shailesh_ji_view_xweb9e.png",
+        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
+      },
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606226/shailesh_ji_view_3_cdbrzm.png",
+        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
+      },
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606227/shailesh_ji_view_2_a4uzph.png",
+        text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
+      },
+    ],
+    isMain: true,
+  },
+  {
+    slug: "tidal-house3",
+    title: "Tidal House1",
+    category: "Residential",
+    location: "Hokkaido, Japan",
+    year: "2022",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780603027/mehmodabad_residence_sketch_jxescp.png",
+    sections: [
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602889/option4.3_copy_qjn9pw.jpg",
+        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
+      },
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602890/option3.2_copy_exjilz.jpg",
+        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
+      },
+      // {
+      //   image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602887/option1.3_copy_pf2mai.jpg",
+      //   text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
+      // },
+      // {
+      //   image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602889/option1.2.3_copy_ipgwrx.jpg",
+      //   text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
+      // },
+    ],
+    isMain: true,
+  },
+  {
+    slug: "tidal-house4",
+    title: "Tidal House1",
+    category: "Residential",
+    location: "Hokkaido, Japan",
+    year: "2022",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602608/shyam_narayan_tiwari_sketch_kqm69e.png",
+    sections: [
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602467/TiwariNarayanTiwari-Ahimamau-Lko-Design-3d-2026-03-08_copy_esgdph.jpg",
+        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
+      },
+    ],
+    isMain: true,
+  },
+  {
+    slug: "tidal-house5",
+    title: "Tidal House1",
+    category: "Residential",
+    location: "Hokkaido, Japan",
+    year: "2022",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656628/sushil_ji_residence_sketch_zjdusb.png",
+    sections: [
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656578/sushil_ji_residence_2_thohni.png",
+        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
+      },
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656572/sushil_ji_residence_4_ihxx5l.png",
+        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
+      },
+      {
+        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656571/sushil_ji_residence_1_c89c5l.png",
+        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
+      },
+    ],
+    isMain: true,
+  },
 ];

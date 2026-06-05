@@ -80,14 +80,14 @@ function ServiceCard({ service, index, isExpanded, onToggle }: ServiceCardProps)
           <div className="flex-1">
             <div className="flex items-center gap-6 mb-4">
               <motion.span
-                className="text-xs text-accent font-mono"
+                className="text-md text-accent font-mono"
                 animate={{ scale: isExpanded ? 1.2 : 1 }}
                 transition={{ duration: 0.2 }}
               >
                 {service.number}
               </motion.span>
               <motion.h3
-                className="text-xl font-medium"
+                className="text-2xl font-medium"
                 animate={{ x: isExpanded ? 5 : 0 }}
                 transition={{ duration: 0.2 }}
               >

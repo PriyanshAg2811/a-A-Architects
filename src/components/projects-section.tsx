@@ -12,8 +12,8 @@ export function ProjectsSection() {
         <header className="mb-14">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
-                a+A ARchitects — Selected Work
+              <p className="text-[10px] tracking-[0.35em] text-muted-foreground mb-3">
+                a+A Architects — Selected Work
               </p>
               <h1
                 className="text-5xl md:text-7xl font-light leading-none tracking-tight"
@@ -51,7 +51,7 @@ export function ProjectsSection() {
                     src={project.thumbnail}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-all duration-500 group-hover:scale-105 dark:brightness-75 dark:saturate-90"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>

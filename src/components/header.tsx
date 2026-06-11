@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
@@ -65,25 +66,32 @@ export function Header() {
         transition={{ duration: 0.3 }}
       >
         <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-xl font-medium tracking-tight relative group"
-          >
-            <motion.span
+          <Link href="/" className="relative group">
+            <motion.div
+              className="flex items-center gap-4"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              a+A Architects
-            </motion.span>
-            <motion.span
-              className="block text-xs text-muted-foreground tracking-widest uppercase"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Architecture & Design Studio
-            </motion.span>
+              <Image
+                src="/logo.svg"
+                alt="a+A Architects logo"
+                width={48}
+                height={48}
+                className="h-12 w-12 object-contain shrink-0"
+              />
+
+              <div className="flex flex-col justify-center">
+                <span className="text-xl font-medium tracking-tight">
+                  a+A Architects
+                </span>
+
+                <span className="text-xs text-muted-foreground tracking-widest uppercase">
+                  Architecture & Design Studio
+                </span>
+              </div>
+            </motion.div>
+
             <motion.span className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300" />
           </Link>
 

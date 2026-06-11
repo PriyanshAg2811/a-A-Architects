@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { navLinks } from "./header";
@@ -12,22 +13,30 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <Link href="/" className="text-lg font-medium group relative inline-block">
-              a+A Architects
-              <motion.span
-                className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300"
+          <Link href="/" className="relative group">
+            <motion.div
+              className="flex items-center gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src="/logo.svg"
+                alt="a+A Architects logo"
+                width={48}
+                height={48}
+                className="h-12 w-12 object-contain shrink-0"
               />
-            </Link>
-            <p className="text-xs text-muted-foreground mt-1">
-              Architecture & Design Studio
-            </p>
-          </motion.div>
+
+              <div className="flex flex-col justify-center">
+                <span className="text-xl font-medium tracking-tight">a+A Architects</span>
+                <span className="text-xs text-muted-foreground tracking-widest uppercase">Architecture & Design Studio</span>
+              </div>
+            </motion.div>
+
+            <motion.span className="absolute -bottom-1 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300" />
+          </Link>
 
           {/* Navigation */}
           <motion.nav

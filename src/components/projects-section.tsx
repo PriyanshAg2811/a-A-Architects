@@ -54,6 +54,15 @@ export function ProjectsSection() {
                     className="object-cover transition-all duration-500 group-hover:scale-105 dark:brightness-75 dark:saturate-90"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
+                  {project.hoverImage ? (
+                    <Image
+                      src={project.hoverImage}
+                      alt={`${project.title} hover`}
+                      fill
+                      className="absolute inset-0 object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : null}
                 </div>
                 <div className="p-6">
                   <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">

@@ -217,18 +217,4 @@ export const projects: Project[] = [
     ],
     isMain: true,
   },
-  {
-    slug: "tidal-house7",
-    title: "Tidal House1",
-    category: "Residential",
-    location: "Hokkaido, Japan",
-    year: "2022",
-    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780749062/technical_education_opt1_sketch_qi6dcp.png",
-    sections: [
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656578/sushil_ji_residence_2_thohni.png",
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656572/sushil_ji_residence_4_ihxx5l.png",
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656571/sushil_ji_residence_1_c89c5l.png",
-    ],
-    isMain: true,
-  },
 ];

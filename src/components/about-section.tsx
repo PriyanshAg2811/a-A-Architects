@@ -4,7 +4,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedCounter } from "./animated-counter";
-import { FadeIn, TextReveal, StaggerChildren, staggerChildVariants } from "./text-reveal";
+import {
+  FadeIn,
+  TextReveal,
+  StaggerChildren,
+  staggerChildVariants,
+} from "./text-reveal";
 import { aboutStats } from "@/lib/team";
 
 export function AboutSection() {
@@ -34,7 +39,11 @@ export function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="py-24 md:py-32 bg-background overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="about"
+      className="py-24 md:py-32 bg-background overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left Column */}
@@ -51,7 +60,7 @@ export function AboutSection() {
               </h2>
             </TextReveal>
 
-            {/* Stats with Animated Counters
+            {/* Stats with Animated Counters */}
             <div className="grid grid-cols-2 gap-8 mt-12">
               {aboutStats.map((stat, index) => (
                 <motion.div
@@ -62,11 +71,10 @@ export function AboutSection() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="relative pl-4"
                 >
-                  // Animated Border
-                  // <motion.div
-                  //   className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent origin-top"
-                  //   style={{ scaleY: lineScale }}
-                  // />
+                  <motion.div
+                    className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent origin-top"
+                    style={{ scaleY: lineScale }}
+                  />
                   <p className="text-3xl md:text-4xl font-light">
                     <AnimatedCounter
                       value={stat.value}
@@ -80,9 +88,8 @@ export function AboutSection() {
                 </motion.div>
               ))}
             </div>
-            */}
 
-            <div className="mt-12 overflow-hidden rounded-4xl">
+            {/* <div className="mt-12 overflow-hidden rounded-4xl">
               <Image
                 src={isDarkMode ? "/images/about/about-dark.png" : "/images/about/about-light.png"}
                 alt="Architecture studio workspace"
@@ -90,7 +97,7 @@ export function AboutSection() {
                 height={900}
                 className="w-full h-auto object-cover"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column */}
@@ -100,10 +107,11 @@ export function AboutSection() {
                 variants={staggerChildVariants}
                 className="text-muted-foreground leading-relaxed"
               >
-                Founded in 2009, our studio has been dedicated to creating
-                architectural experiences that transcend the ordinary. We believe
-                that great design emerges from a deep understanding of place,
-                purpose, and the people who will inhabit the spaces we create.
+                Founded in 2021, our studio has been dedicated to creating
+                architectural experiences that transcend the ordinary. We
+                believe that great design emerges from a deep understanding of
+                place, purpose, and the people who will inhabit the spaces we
+                create.
               </motion.p>
               <motion.p
                 variants={staggerChildVariants}
@@ -157,7 +165,7 @@ export function AboutSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  Principal Architect & Founder
+                  Architecture & Design Studio
                 </motion.p>
               </motion.div>
             </FadeIn>

@@ -92,10 +92,8 @@ export function TeamSection() {
                     <p className="text-sm text-muted-foreground uppercase tracking-widest">
                       Vision
                     </p>
-                    <p className="text-muted-foreground leading-relaxed mt-4">
-                      To create architectural experiences that transcend
-                      conventional design, merging aesthetic innovation with
-                      sustainable practices and human-centered spaces.
+                    <p className="italic text-muted-foreground leading-relaxed mt-4">
+                      {cofounder.vision}
                     </p>
                   </motion.div>
                 </StaggerChildren>

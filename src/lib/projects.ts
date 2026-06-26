@@ -1,126 +1,98 @@
-export type ProjectSection = {
-  image: string;
-  text: string;
-};
-
 export type Project = {
   slug: string;
   title: string;
   category: string;
   location: string;
   year: string;
+  description?: string;
   thumbnail: string;
-  sections: ProjectSection[];
+  hoverImage?: string;
+  sections: string[];
   isMain?: boolean;
 };
 
 export const projects: Project[] = [
   {
-    slug: "alpine-retreat",
-    title: "Alpine Retreat",
+    slug: "asymmetrical-boxing",
+    title: "Asymmetrical Boxing",
     category: "Residential",
-    location: "Aspen, Colorado",
+    location: "Sector 28, Gurugram, Haryana",
     year: "2024",
+    description: "Asymmetrical Boxing at Gurugram is the residence of an Industry specialist for retirement and enjoy the rest of the life to use the space for get-together spaces or hall on ground which can be converted to any space as the user wants to from private room to public hall for functions and in house parties with the private spaces fully distinguished on first floor.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780579124/copy1_of_bhasin_hand_sketch_tq4liy.png",
+    hoverImage: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780658731/Gemini_Generated_Image_mumzpzmumzpzmumz_ki0fef.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780492961/Asymmetrical_Boxing_Main_Image_rqpitw.jpg",
-        text: "The project is embedded into the mountainside to minimize visual impact. Local timber, stone, and glass are composed into a quiet retreat that feels part of the landscape.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780493444/Asymmetrical_Boxing_Main_Image_2_noi24q.jpg",
-        text: "Locally sourced timber provides warmth throughout the interiors, while generous glazing captures the dramatic alpine light and seasonal views.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780492961/Asymmetrical_Boxing_Main_Image_rqpitw.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781181269/515_exiubp.jpg",
     ],
     isMain: true,
   },
   {
-    slug: "urban-axis-tower",
-    title: "Urban Axis Tower",
-    category: "Commercial",
-    location: "Chicago, Illinois",
-    year: "2023",
+    slug: "the-green-brick-residence",
+    title: "The Green Brick Residence",
+    category: "Residential",
+    location: "Sector 27, Gurugram, Haryana",
+    year: "2025",
+    description: "An elegant multi-level home characterized by a harmonious combination of exposed brickwork, wooden accents, and cascading landscape elements. Large openings maximize natural light while the carefully integrated planters soften the architectural mass, resulting in a warm and inviting contemporary façade. The design seamlessly blends indoor and outdoor living, creating a tranquil oasis that celebrates nature and craftsmanship.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572506/cvm_hand_sketch_hvd2gw.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572394/cvm_16_-_Photo_czr4m8.jpg",
-        text: "A 40-story office complex redefines the city skyline with a parametric façade that responds to solar angles and shifts light across the plaza.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572393/cvm_12_-_Photo_k1tsxb.jpg",
-        text: "The vertical volume gently twists from base to top, creating planted terraces and common spaces that connect interior life with the street below.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572394/cvm_16_-_Photo_czr4m8.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572393/cvm_12_-_Photo_k1tsxb.jpg",
     ],
     isMain: true,
   },
   {
-    slug: "the-glass-pavilion",
-    title: "The Glass Pavilion",
+    slug: "serenity-edge-residence",
+    title: "Serenity Edge Residence",
     category: "Residential",
-    location: "Malibu, California",
-    year: "2023",
+    location: "Indira Nagar, Lucknow, U.P.",
+    year: "2022",
+    description: "A contemporary residence designed to embrace openness, natural light, and seamless outdoor living. Defined by clean architectural lines, elegant material contrasts, and lush landscape integration, the home creates a refined yet welcoming presence. Expansive balconies, decorative façade elements, and thoughtfully planned green spaces enhance both aesthetics and everyday living.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780574501/geometric_spaces_2_e8vbvd.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780574467/geometric_spaces_1_klbdof.png",
-        text: "Open-concept living celebrates natural light and uninterrupted Pacific views. The building appears to float above its clifftop site.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780574887/geometric_spaces_3_khj6qy.png",
-        text: "Every structural joint is concealed, allowing the glass walls and delicate framing to create seamless indoor-outdoor connections.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780574467/geometric_spaces_1_klbdof.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780574887/geometric_spaces_3_khj6qy.png",
     ],
     isMain: true,
   },
   {
-    slug: "coastal-sanctuary",
-    title: "Coastal Sanctuary",
+    slug: "the-orbital-house",
+    title: "The Orbital House",
     category: "Residential",
-    location: "Santorini, Greece",
-    year: "2022",
+    location: "Matiyari, Lucknow, U.P.",
+    year: "2026",
+    description: "A contemporary masterpiece featuring curved architectural frames, dramatic voids, and elegant brick textures. The façade balances bold design with warmth and functionality, resulting in a residence that stands out while remaining deeply connected to its surroundings.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780573808/project_full_moon_free_hand_sketch_geqdhf.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780573452/Render_Opt7.2_golvc1.png",
-        text: "Mediterranean luxury Villa distilled to its essence. Volcanic stone walls and infinity pools merge with the Aegean Sea.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780573539/project_full_moon_nc5gts.png",
-        text: "The interiors are calm and white-washed, while framed courtyards punctuate the building and offer private outdoor rooms.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780573452/Render_Opt7.2_golvc1.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780573539/project_full_moon_nc5gts.png",
     ],
     isMain: true,
   },
   {
-    slug: "meridian-cultural-centre",
-    title: "Meridian Cultural Centre",
-    category: "Cultural",
-    location: "Melbourne, Australia",
-    year: "2024",
+    slug: "the-quiet-house",
+    title: "The Quiet House",
+    category: "Residential",
+    location: "Ayodhya, U.P.",
+    year: "2022",
+    description: "Designed around the philosophy that simplicity is the ultimate sophistication, this home embraces restrained elegance through clean forms, natural textures, and uncluttered spaces that foster a sense of calm and comfort. Thoughtfully balanced proportions, open balconies, and warm material accents create a timeless architectural expression where modern living meets tranquility.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780579852/prabhat_residence_sketch_vxiuol.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780579779/1_PHOTO_SET_1_3_m9qqea.jpg",
-        text: "A civic landmark folded from a continuous concrete ribbon. Galleries, performance spaces, and a rooftop garden are woven together in one sequence.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780579779/1_PHOTO_SET_1_3_m9qqea.jpg",
     ],
+    isMain: true,
   },
   {
-    slug: "tidal-house",
-    title: "Tidal House",
+    slug: "maison-blanche",
+    title: "Maison Blanche",
     category: "Residential",
-    location: "Hokkaido, Japan",
-    year: "2022",
+    location: "Emaar, Gomti Nagar, Lucknow, U.P.",
+    year: "2023",
+    description: "With its crisp white façade, elegant arches, and ornamental details, this residence draws inspiration from timeless European villas while embracing the comforts of modern family living.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580749/poonam_residence_sketch_jdd8in.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580182/WhatsApp_Image_2026-06-04_at_19.05.26_agywvu.jpg",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580471/WhatsApp_Image_2026-06-04_at_19.05.25_1_hvlrij.jpg",
-        text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580182/WhatsApp_Image_2026-06-04_at_19.05.26_agywvu.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580471/WhatsApp_Image_2026-06-04_at_19.05.25_1_hvlrij.jpg",
     ],
     isMain: true,
   },
@@ -132,122 +104,130 @@ export const projects: Project[] = [
     year: "2022",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780581565/dining_sketch_waqxbe.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580645/WhatsApp_Image_2024-06-12_at_02.07.12_z2hfu3.jpg",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580678/WhatsApp_Image_2023-09-22_at_23.45.14_1_edli0h.jpg",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580682/WhatsApp_Image_2023-09-22_at_23.45.14_qrxith.jpg",
-        text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580675/WhatsApp_Image_2023-09-22_at_23.45.13_1_vsmyv3.jpg",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580693/WhatsApp_Image_2023-09-18_at_19.23.24_rsohqc.jpg",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580686/WhatsApp_Image_2023-09-18_at_19.23.22_1_qvtkfv.jpg",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580689/WhatsApp_Image_2023-09-18_at_19.23.22_dbxjvs.jpg",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580645/WhatsApp_Image_2024-06-12_at_02.07.12_z2hfu3.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580678/WhatsApp_Image_2023-09-22_at_23.45.14_1_edli0h.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580682/WhatsApp_Image_2023-09-22_at_23.45.14_qrxith.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580675/WhatsApp_Image_2023-09-22_at_23.45.13_1_vsmyv3.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580693/WhatsApp_Image_2023-09-18_at_19.23.24_rsohqc.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580686/WhatsApp_Image_2023-09-18_at_19.23.22_1_qvtkfv.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780580689/WhatsApp_Image_2023-09-18_at_19.23.22_dbxjvs.jpg",
     ],
     isMain: true,
   },
   {
-    slug: "tidal-house2",
-    title: "Tidal House1",
+    slug: "the-urban-outcrop",
+    title: "The Urban Outcrop",
     category: "Residential",
-    location: "Hokkaido, Japan",
-    year: "2022",
+    location: "Aziz Nagar, Madiyaon, Lucknow, U.P.",
+    year: "2025",
+    description: "A contemporary residence shaped by bold architectural framing, textured brick surfaces, and clean geometric forms. Thoughtfully composed volumes, open terraces, and a restrained material palette create a timeless design that balances modern aesthetics with everyday functionality.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606426/shailesh_ji_residence_sketch_qlruld.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606225/shailesh_ji_view_xweb9e.png",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606226/shailesh_ji_view_3_cdbrzm.png",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606227/shailesh_ji_view_2_a4uzph.png",
-        text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606225/shailesh_ji_view_xweb9e.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606226/shailesh_ji_view_3_cdbrzm.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780606227/shailesh_ji_view_2_a4uzph.png",
     ],
     isMain: true,
   },
   {
-    slug: "tidal-house3",
-    title: "Tidal House1",
+    slug: "habitat-03",
+    title: "Habitat 03",
     category: "Residential",
-    location: "Hokkaido, Japan",
-    year: "2022",
+    location: "Mehmodabad, U.P.",
+    year: "2025",
+    description: "A minimalist architectural composition focused on human experience, blending geometry, light, and materiality into a modern urban habitat. The design emphasizes simplicity and functionality, with clean lines, open spaces, and a restrained material palette that creates a serene and timeless living environment. Thoughtful spatial arrangements and carefully curated details enhance the connection between the interior and exterior, fostering a harmonious relationship between the built environment and its inhabitants.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780603027/mehmodabad_residence_sketch_jxescp.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602889/option4.3_copy_qjn9pw.jpg",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602890/option3.2_copy_exjilz.jpg",
-        text: "Warm materials and soft lighting create a comfortable retreat that feels grounded in the seasonal landscape.",
-      },
-      // {
-      //   image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602887/option1.3_copy_pf2mai.jpg",
-      //   text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
-      // },
-      // {
-      //   image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602889/option1.2.3_copy_ipgwrx.jpg",
-      //   text: "The plan is composed around a sequence of intimate interior volumes that open to garden courts and winter sunlight.",
-      // },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602889/option4.3_copy_qjn9pw.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602890/option3.2_copy_exjilz.jpg",
     ],
     isMain: true,
   },
   {
-    slug: "tidal-house4",
-    title: "Tidal House1",
+    slug: "the-urban-colonnade",
+    title: "The Urban Colonnade",
     category: "Residential",
-    location: "Hokkaido, Japan",
-    year: "2022",
+    location: "Sultanpur Road, Ahmamau, Lucknow, U.P.",
+    year: "2025",
+    description: "A contemporary residential development inspired by the timeless rhythm of arches and colonnades. Featuring spacious balconies, elegant material contrasts, and carefully crafted architectural details, the design creates a refined living environment that balances modern comfort with enduring sophistication.",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602608/shyam_narayan_tiwari_sketch_kqm69e.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602467/TiwariNarayanTiwari-Ahimamau-Lko-Design-3d-2026-03-08_copy_esgdph.jpg",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780602467/TiwariNarayanTiwari-Ahimamau-Lko-Design-3d-2026-03-08_copy_esgdph.jpg",
     ],
     isMain: true,
   },
   {
-    slug: "tidal-house5",
+    slug: "mishra-residence",
+    title: "Mishra Residence",
+    category: "Residential",
+    location: "Khargapur, Lucknow, U.P.",
+    year: "2021",
+    description: "A contemporary corner residence defined by bold geometric forms, floating planes, and a refined material palette. Layered balconies, expansive glazing, and carefully integrated landscaping create a dynamic architectural composition that balances modern aesthetics with comfortable living. Designed to make a statement from every perspective, the home embodies strength, elegance, and timeless contemporary design.",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656628/sushil_ji_residence_sketch_zjdusb.png",
+    sections: [
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656578/sushil_ji_residence_2_thohni.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656572/sushil_ji_residence_4_ihxx5l.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656571/sushil_ji_residence_1_c89c5l.png",
+    ],
+    isMain: true,
+  },
+  {
+    slug: "technical-education-admin-block",
+    title: "Technical Education Admin Block",
+    category: "Institutional",
+    location: "Lucknow, U.P.",
+    year: "2021",
+    description: "A landmark institutional building designed to inspire learning, innovation, and collaboration. Defined by its bold architectural presence, rhythmic vertical elements, and grand entrance plaza, the structure reflects the progressive spirit of technical education. The design combines functionality with a strong civic identity, creating an environment that fosters academic excellence and future-ready learning.",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780749062/technical_education_opt1_sketch_qi6dcp.png",
+    hoverImage: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780750117/technical_education_opt1_color_sketch_jbabex.png",
+    sections: [
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780749065/technical_education_1_s7ipku.png",
+    ],
+    isMain: true,
+  },
+  {
+    slug: "technical-education-headquarter",
+    title: "Technical Education Headquarter",
+    category: "Institutional",
+    location: "Hardoi, U.P.",
+    year: "2022",
+    description: "1. The Technical Education Headquarters is a contemporary institutional building designed to foster innovation, learning, and professional excellence. Its modern architectural language combines expansive glass façades, sustainable green elements, and distinctive geometric features that symbolize knowledge, creativity, and technological advancement. The prominent entrance, integrated accessibility features, and thoughtfully designed public spaces create a welcoming environment for students, educators, and industry professionals. As a center for technical learning and administration, the building reflects a commitment to empowering future generations through skill development, research, and innovation-driven education.\n\n2. This iconic entrance sculpture symbolizes the fusion of innovation, technical expertise, and practical learning. The interlocking gear and wrench elements represent engineering, technology, and problem-solving, while the dynamic circular form reflects continuous growth, progress, and the pursuit of excellence. Positioned at the forefront of the campus, it serves as a powerful landmark that embodies the institution’s commitment to shaping skilled professionals, fostering innovation, and driving technological advancement for the future.\n\n3. This architectural feature wall symbolizes the core values of technical education—innovation, skill development, and intellectual growth. The illuminated lightbulb motif represents creativity and new ideas, while the engineering and industrial icons highlight practical learning, technology, and problem-solving. Adjacent to it, the geometric portrait mural serves as a tribute to wisdom, vision, and lifelong learning. Together, these elements create a striking visual identity that reflects the institution’s mission of empowering future professionals through knowledge, innovation, and technical excellence.",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780659153/technical_education_sketch_vef4vs.png",
+    hoverImage: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781191772/technical_education_headquarter_color_sketch_pen_option_3_sblwxr.png",
+    sections: [
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781189813/technical_education_headquarter_ixn4tg.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781189975/technical_education_headquarter_scripture_nsn7iz.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781190386/technical_education_headquarter_night_view_eao39z.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781190627/technical_education_headquarter_side_view_ghqxb4.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781190854/technical_education_headquarter_zoomed_view_rrwmar.png",
+    ],
+    isMain: true,
+  },
+  {
+    slug: "the-fifth-elevation",
+    title: "The Fifth Elevation",
+    category: "Residential",
+    location: "Dayal Residency, Chinhat, Lucknow, U.P.",
+    year: "2024",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781194271/HARINAM_SIGH_RENDER_SKETCH_VIEW_ucuahq.png",
+    hoverImage: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781194280/HARINAM_SIGH_RENDER_SKETCH_PEN_VIEW_1_n6xtd4.png",
+    sections: [
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781193578/HARINAM_SIGH_RENDER_NIGHT_VIEW_fhtkjs.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781193556/HARINAM_SIGH_RENDER_DAYTIME_VIEW_v4xdlv.png",
+    ],
+    isMain: true,
+  },
+  {
+    slug: "tidal-house7",
     title: "Tidal House1",
     category: "Residential",
     location: "Hokkaido, Japan",
     year: "2022",
-    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656628/sushil_ji_residence_sketch_zjdusb.png",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780749062/technical_education_opt1_sketch_qi6dcp.png",
     sections: [
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656578/sushil_ji_residence_2_thohni.png",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656572/sushil_ji_residence_4_ihxx5l.png",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
-      {
-        image: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656571/sushil_ji_residence_1_c89c5l.png",
-        text: "Inspired by the rhythmic erosion of the coastline, the house uses cedar cladding that changes with weather and light.",
-      },
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656578/sushil_ji_residence_2_thohni.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656572/sushil_ji_residence_4_ihxx5l.png",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780656571/sushil_ji_residence_1_c89c5l.png",
     ],
     isMain: true,
   },

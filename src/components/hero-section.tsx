@@ -44,9 +44,16 @@ export function HeroSection() {
     >
       {/* Parallax Background Image */}
       <motion.div className="absolute inset-0 z-0" style={{ y: imageY }}>
-        <motion.div style={{ scale: imageScale }} className="relative w-full h-full">
+        <motion.div
+          style={{ scale: imageScale }}
+          className="relative w-full h-full"
+        >
           <Image
-            src={isDarkMode ? "/images/hero/hero-dark.png" : "/images/hero/hero-light.png"}
+            src={
+              isDarkMode
+                ? "/images/hero/hero-dark.png"
+                : "/images/hero/hero-light.png"
+            }
             alt="Modern architectural design"
             fill
             className="object-cover"
@@ -54,32 +61,10 @@ export function HeroSection() {
           />
         </motion.div>
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-background/30"
+          className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30"
           style={{ opacity: overlayOpacity }}
         />
       </motion.div>
-
-      {/* Animated Grid Lines */}
-      <div className="absolute inset-0 z-1 pointer-events-none">
-        <motion.div
-          className="absolute left-1/4 top-0 bottom-0 w-px bg-foreground/5"
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-        />
-        <motion.div
-          className="absolute left-1/2 top-0 bottom-0 w-px bg-foreground/5"
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        />
-        <motion.div
-          className="absolute left-3/4 top-0 bottom-0 w-px bg-foreground/5"
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 1.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </div>
 
       {/* Content */}
       <motion.div
@@ -107,10 +92,14 @@ export function HeroSection() {
           </div>
 
           <FadeIn delay={0.4}>
-            <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-              Award-winning architectural practice specializing in modern
-              residential and commercial design. We craft environments that
-              harmonize form, function, and nature.
+            <p
+              className="text-lg mb-8 max-w-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)]"
+              style={{ color: isDarkMode ? "#CBD5E1" : "#111827" }}
+            >
+              An Architecture and design studio delivering bespoke residential,
+              commercial, institutional, hospitality, and interior projects
+              through thoughtful, client-focused design. We craft environments
+              that harmonize form, function, and nature.
             </p>
           </FadeIn>
 

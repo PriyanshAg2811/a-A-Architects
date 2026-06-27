@@ -12,9 +12,9 @@ export default function ContactPage() {
     <>
       <Header />
       <main>
-        <ContactSection />
+        <ContactSection compact />
       </main>
-      <Footer />
+      <Footer hideBackToTop />
     </>
   );
 }

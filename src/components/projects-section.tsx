@@ -8,34 +8,37 @@ import { motion } from "framer-motion";
 export function ProjectsSection() {
   return (
     <motion.section style={{ fontFamily: "var(--font-display)" }} className="min-h-screen bg-card text-foreground py-20 px-6">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-7xl mx-auto">
         <header className="mb-14">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <p className="text-[10px] tracking-[0.35em] text-muted-foreground mb-3">
-                a+A Architects — Selected Work
-              </p>
-              <h1
-                className="text-5xl md:text-7xl font-light leading-none tracking-tight"
-                style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
-              >
-                Projects
-              </h1>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground max-w-md">
-                Explore an editorial collection of architecture projects. Tap a card to open the full story and image sequence for each work.
-              </p>
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div>
+                <p className="text-[10px] tracking-[0.35em] text-muted-foreground mb-3">
+                  a+A Architects — Selected Work
+                </p>
+                <h1
+                  className="text-5xl md:text-7xl font-light leading-none tracking-tight"
+                  style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+                >
+                  Projects
+                </h1>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground max-w-md">
+                  Explore an editorial collection of architecture projects. Tap a card to open the full story and image sequence for each work.
+                </p>
+              </div>
             </div>
           </div>
 
           <div className="mt-10 h-px bg-[#2E2A26]" />
         </header>
 
-        <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-3 bg-card">
+        <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-3 bg-card items-stretch">
           {projects.map((project, index) => (
             <motion.div
               key={project.slug}
+              className="h-full"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -43,10 +46,10 @@ export function ProjectsSection() {
             >
               <Link
                 href={`/projects/${project.slug}`}
-                className="group block bg-card overflow-hidden border border-border transition duration-300 hover:-translate-y-1 hover:border-muted-foreground/60"
+                className="group block h-full bg-card overflow-hidden border border-border transition duration-300 hover:-translate-y-1 hover:border-muted-foreground/60"
                 data-cursor="View"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-4/3 overflow-hidden">
                   <Image
                     src={project.thumbnail}
                     alt={project.title}

@@ -9,7 +9,11 @@ import { RippleButton } from "./ui/ripple-button";
 import { NoiseTexture } from "./ui/noise-texture";
 import { contactData } from "@/lib/contact";
 
-export function ContactSection() {
+interface ContactSectionProps {
+  compact?: boolean;
+}
+
+export function ContactSection({ compact = false }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -42,10 +46,10 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-24 md:py-32 bg-background text-foreground overflow-hidden"
+      className={`${compact ? "py-20 md:py-24" : "py-24 md:py-32"} bg-background text-foreground overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 ${compact ? "gap-12 lg:gap-16" : "gap-16 lg:gap-24"}`}>
           <div>
             <FadeIn>
               <p className="text-sm uppercase tracking-widest opacity-60 mb-2">
@@ -58,7 +62,7 @@ export function ContactSection() {
               </h2>
             </TextReveal>
             <FadeIn delay={0.2}>
-              <p className="opacity-70 leading-relaxed mb-12 max-w-md">
+              <p className={`opacity-70 leading-relaxed ${compact ? "mb-8" : "mb-12"} max-w-md`}>
                 {contactData.description}
               </p>
             </FadeIn>
@@ -151,7 +155,7 @@ export function ContactSection() {
             <motion.form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="relative rounded-4xl border border-border/50 bg-background/90 p-8 shadow-[0_30px_120px_rgba(0,0,0,0.12)]"
+              className={`relative rounded-4xl border border-border/50 bg-background/90 ${compact ? "p-6 sm:p-8" : "p-8"} shadow-[0_30px_120px_rgba(0,0,0,0.12)]`}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
@@ -186,7 +190,7 @@ export function ContactSection() {
 
               <NoiseTexture className="rounded-4xl" />
 
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className={`grid gap-${compact ? "5" : "6"} sm:grid-cols-2`}>
                 <div>
                   <label
                     htmlFor="fullName"
@@ -265,7 +269,7 @@ export function ContactSection() {
                 />
               </div>
 
-              <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className={`mt-8 flex flex-col items-start gap-${compact ? "3" : "4"} sm:flex-row sm:items-center sm:justify-between`}>
                 <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
                   Ready to collaborate?
                 </p>

@@ -5,7 +5,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { navLinks } from "./header";
 
-export function Footer() {
+interface FooterProps {
+  hideBackToTop?: boolean;
+}
+
+export function Footer({ hideBackToTop = false }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -72,37 +76,38 @@ export function Footer() {
           </motion.p>
         </div>
 
-        {/* Back to Top */}
-        <motion.div
-          className="mt-8 pt-8 border-t border-border flex justify-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 group"
-            whileHover={{ y: -2 }}
+        {!hideBackToTop && (
+          <motion.div
+            className="mt-8 pt-8 border-t border-border flex justify-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
           >
-            <motion.svg
-              className="w-4 h-4 rotate-180"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              animate={{ y: [0, -3, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+            <motion.button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 group"
+              whileHover={{ y: -2 }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </motion.svg>
-            Back to Top
-          </motion.button>
-        </motion.div>
+              <motion.svg
+                className="w-4 h-4 rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </motion.svg>
+              Back to Top
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </footer>
   );

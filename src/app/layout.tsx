@@ -38,6 +38,18 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased" suppressHydrationWarning={true}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const storedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const darkMode = storedTheme === 'dark' || (!storedTheme && prefersDark);
+                document.documentElement.classList.toggle('dark', darkMode);
+              } catch (error) {}
+            `,
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

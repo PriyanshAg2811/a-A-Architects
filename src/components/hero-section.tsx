@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { MagneticButton } from "./magnetic-button";
 import { TextReveal, FadeIn } from "./text-reveal";
 
@@ -19,23 +18,6 @@ export function HeroSection() {
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const updateTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
-    };
-
-    updateTheme();
-
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
@@ -43,22 +25,15 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       {/* Parallax Background Image */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: imageY }}>
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y: imageY }}
+      >
         <motion.div
           style={{ scale: imageScale }}
-          className="relative w-full h-full"
+          className="relative w-full h-full bg-cover bg-center"
         >
-          <Image
-            src={
-              isDarkMode
-                ? "/images/hero/hero-dark.png"
-                : "/images/hero/hero-light.png"
-            }
-            alt="Modern architectural design"
-            fill
-            className="object-cover"
-            priority
-          />
+          <div className="absolute inset-0 bg-[url('/images/hero/hero-light.png')] dark:bg-[url('/images/hero/hero-dark.png')] bg-cover bg-center" />
         </motion.div>
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30"
@@ -92,10 +67,7 @@ export function HeroSection() {
           </div>
 
           <FadeIn delay={0.4}>
-            <p
-              className="text-lg mb-8 max-w-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)]"
-              style={{ color: isDarkMode ? "#CBD5E1" : "#111827" }}
-            >
+            <p className="text-lg mb-8 max-w-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)] text-foreground dark:text-slate-200">
               An Architecture and design studio delivering bespoke residential,
               commercial, institutional, hospitality, and interior projects
               through thoughtful, client-focused design. We craft environments

@@ -84,7 +84,7 @@ export function ProjectsHorizontalScroll() {
           </div>
           <FadeIn delay={0.2}>
             <p className="text-muted-foreground max-w-md">
-              Explore our latest residential and commercial projects.
+              Explore our various types of residential, institutional, commercial projects.
             </p>
           </FadeIn>
         </div>
@@ -96,7 +96,11 @@ export function ProjectsHorizontalScroll() {
         >
           <div
             ref={scrollContainerRef}
-            className="flex gap-8 overflow-x-hidden pb-4"
+            className="flex gap-8 overflow-x-auto md:overflow-x-hidden pb-4 hide-scrollbar"
+            style={{ touchAction: "pan-x" }}
+            onPointerDown={() => setIsPaused(true)}
+            onPointerUp={() => setIsPaused(false)}
+            onPointerCancel={() => setIsPaused(false)}
           >
             {infiniteProjects.map((project, index) => (
               <HorizontalProjectCard
@@ -111,7 +115,7 @@ export function ProjectsHorizontalScroll() {
 
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg"
+            className="hidden md:inline-flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground items-center justify-center shadow-lg"
           >
             <svg
               className="w-5 h-5"
@@ -130,7 +134,7 @@ export function ProjectsHorizontalScroll() {
 
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg"
+            className="hidden md:inline-flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground items-center justify-center shadow-lg"
           >
             <svg
               className="w-5 h-5"

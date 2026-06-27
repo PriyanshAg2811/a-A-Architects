@@ -202,7 +202,7 @@ export function ContactSection() {
                       setFormData({ ...formData, fullName: e.target.value })
                     }
                     className={inputClasses}
-                    placeholder="Manu Arora"
+                    placeholder="Ananya Singh"
                     required
                   />
                 </div>
@@ -221,7 +221,7 @@ export function ContactSection() {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     className={inputClasses}
-                    placeholder="support@aceternity.com"
+                    placeholder={contactData.email}
                     required
                   />
                 </div>

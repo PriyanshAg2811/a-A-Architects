@@ -356,10 +356,10 @@ export const projects: Project[] = [
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783201470/ChatGPT_Image_Jul_5_2026_03_09_13_AM_rjuhfu.png",
     hoverImage: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783200912/ChatGPT_Image_Jul_5_2026_03_04_35_AM_kzeriw.png",
     sections: [
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198104/WhatsApp_Image_2025-12-15_at_09.23.10_1_x8qeir.jpg",
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198106/WhatsApp_Image_2025-12-15_at_09.23.11_vllvxn.jpg",
-      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198186/ROOM_WALL-01_1_pgw9jn.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198104/WhatsApp_Image_2025-12-15_at_09.23.10_1_x8qeir.jpg",
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198189/ROOM-02-TV_copy_nyc685.jpg",
+      "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198186/ROOM_WALL-01_1_pgw9jn.jpg",
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198197/ROOM-02_1_copy_eqrlby.jpg",
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198195/ROOM_WALL-02_copy_wzyu4o.jpg",
     ],

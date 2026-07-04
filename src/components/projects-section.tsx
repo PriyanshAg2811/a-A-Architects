@@ -84,7 +84,7 @@ export function ProjectsSection() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`text-sm uppercase tracking-[0.25em] px-3 py-1 border rounded-sm transition ${selectedCategory === cat ? 'bg-foreground text-background' : 'text-muted-foreground border-border'}`}
+                className={`text-sm uppercase tracking-[0.25em] px-3 py-1 border rounded-sm transition ${selectedCategory === cat ? 'bg-foreground text-background' : 'text-muted-foreground border-border hover:bg-foreground/10 hover:text-foreground'} cursor-pointer`}
               >
                 {cat}
               </button>
@@ -121,7 +121,7 @@ export function ProjectsSection() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.45, delay: index * 0.03 }}
             >
               <Link
                 href={`/projects/${project.slug}${selectedCategory && selectedCategory !== "All" ? `?category=${encodeURIComponent(selectedCategory)}` : ""}`}

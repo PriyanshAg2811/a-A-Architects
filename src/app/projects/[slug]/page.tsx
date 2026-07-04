@@ -5,12 +5,10 @@ import { Footer } from "@/components/footer";
 import { ProjectSections } from "@/components/project-sections";
 import { projects } from "@/lib/projects";
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export default async function ProjectPage({ params, searchParams }: { params: any; searchParams?: { category?: string } }) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+  const category = searchParams?.category;
 
   const project = projects.find(
     (project) => project.slug === slug
@@ -24,7 +22,7 @@ export default async function ProjectPage({
         <section className="px-6 py-24 md:px-12">
           <div className="max-w-5xl">
             <Link
-              href="/projects"
+              href={`/projects${category ? `?category=${encodeURIComponent(category)}` : ""}`}
               className="text-sm uppercase tracking-[0.35em] text-muted-foreground hover:text-foreground transition"
             >
               Back to projects
@@ -36,6 +34,8 @@ export default async function ProjectPage({
               {project.location}
               <br />
               {project.year}
+              <br />
+              {project.category.join(', ')}
             </div>
           </div>
         </section>

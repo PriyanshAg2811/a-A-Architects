@@ -2,10 +2,53 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/lib/projects";
+import { useMemo, useState, useEffect, useLayoutEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { projects, ProjectCategory } from "@/lib/projects";
 import { motion } from "framer-motion";
 
 export function ProjectsSection() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const categories = useMemo(() => ["All", ...Object.values(ProjectCategory)], []);
+
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  useLayoutEffect(() => {
+    try {
+      const params = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
+      const urlCat = params.get("category");
+      if (urlCat && categories.includes(urlCat)) {
+        setSelectedCategory(urlCat);
+        return;
+      }
+    } catch (e) {
+      // ignore
+    }
+    setSelectedCategory("All");
+  }, [categories]);
+
+  // keep URL in sync with selection
+
+  useEffect(() => {
+    if (selectedCategory === null) return;
+    try {
+      // reflect selection in the URL without adding history entries
+      const catParam = selectedCategory && selectedCategory !== "All" ? `?category=${encodeURIComponent(selectedCategory)}` : "";
+      router.replace(`${pathname}${catParam}`);
+    } catch (e) {
+      // ignore
+    }
+  }, [selectedCategory, pathname, router]);
+
+  const visibleProjects = useMemo(() => {
+    if (selectedCategory === "All") return projects;
+    return projects.filter((p) => p.category.includes(selectedCategory as ProjectCategory));
+  }, [selectedCategory]);
+
+  if (selectedCategory === null) return null;
+
   return (
     <motion.section style={{ fontFamily: "var(--font-display)" }} className="min-h-screen bg-card text-foreground py-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -34,8 +77,44 @@ export function ProjectsSection() {
           <div className="mt-10 h-px bg-[#2E2A26]" />
         </header>
 
+        <div className="mb-8 px-6">
+          {/* Desktop buttons */}
+          <div className="hidden md:flex flex-wrap gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`text-sm uppercase tracking-[0.25em] px-3 py-1 border rounded-sm transition ${selectedCategory === cat ? 'bg-foreground text-background' : 'text-muted-foreground border-border'}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile dropdown */}
+          <div className="md:hidden">
+            <label className="sr-only">Select category</label>
+            <div className="relative">
+              <select
+                value={selectedCategory ?? 'All'}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full bg-card text-foreground border border-border px-4 py-2 rounded-sm appearance-none text-sm uppercase tracking-[0.25em] shadow-sm focus:outline-none focus:ring-2 focus:ring-muted-foreground"
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat} className="text-sm">
+                    {cat}
+                  </option>
+                ))}
+              </select>
+              <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.25 4.656a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-3 bg-card items-stretch">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <motion.div
               key={project.slug}
               className="h-full"
@@ -45,7 +124,7 @@ export function ProjectsSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <Link
-                href={`/projects/${project.slug}`}
+                href={`/projects/${project.slug}${selectedCategory && selectedCategory !== "All" ? `?category=${encodeURIComponent(selectedCategory)}` : ""}`}
                 className="group block h-full bg-card overflow-hidden border border-border transition duration-300 hover:-translate-y-1 hover:border-muted-foreground/60"
                 data-cursor="View"
               >
@@ -69,7 +148,7 @@ export function ProjectsSection() {
                 </div>
                 <div className="p-6">
                   <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-                    {project.category}
+                    {project.category.join(", ")}
                   </p>
                   <h2
                     className="mt-4 text-3xl font-light leading-tight text-foreground"

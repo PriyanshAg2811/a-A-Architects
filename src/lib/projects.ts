@@ -1,7 +1,7 @@
 export type Project = {
   slug: string;
   title: string;
-  category: string;
+  category: ProjectCategory[];
   location: string;
   year: string;
   description?: string;
@@ -11,11 +11,21 @@ export type Project = {
   isMain?: boolean;
 };
 
+export enum ProjectCategory {
+  Residential = "Residential",
+  Institutional = "Institutional",
+  PublicSpace = "Public Space",
+  Hospitality = "Hospitality",
+  Industrial = "Industrial",
+  Recreational = "Recreational",
+  Landscape = "Landscape",
+}
+
 export const projects: Project[] = [
   {
     slug: "asymmetrical-boxing",
     title: "Asymmetrical Boxing",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Sector 28, Gurugram, Haryana",
     year: "2024",
     description: "Asymmetrical Boxing at Gurugram is the residence of an Industry specialist for retirement and enjoy the rest of the life to use the space for get-together spaces or hall on ground which can be converted to any space as the user wants to from private room to public hall for functions and in house parties with the private spaces fully distinguished on first floor.",
@@ -30,7 +40,7 @@ export const projects: Project[] = [
   {
     slug: "the-green-brick-residence",
     title: "The Green Brick Residence",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Sector 27, Gurugram, Haryana",
     year: "2025",
     description: "An elegant multi-level home characterized by a harmonious combination of exposed brickwork, wooden accents, and cascading landscape elements. Large openings maximize natural light while the carefully integrated planters soften the architectural mass, resulting in a warm and inviting contemporary façade. The design seamlessly blends indoor and outdoor living, creating a tranquil oasis that celebrates nature and craftsmanship.",
@@ -44,7 +54,7 @@ export const projects: Project[] = [
   {
     slug: "serenity-edge-residence",
     title: "Serenity Edge Residence",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Indira Nagar, Lucknow, U.P.",
     year: "2022",
     description: "A contemporary residence designed to embrace openness, natural light, and seamless outdoor living. Defined by clean architectural lines, elegant material contrasts, and lush landscape integration, the home creates a refined yet welcoming presence. Expansive balconies, decorative façade elements, and thoughtfully planned green spaces enhance both aesthetics and everyday living.",
@@ -58,7 +68,7 @@ export const projects: Project[] = [
   {
     slug: "the-orbital-house",
     title: "The Orbital House",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Matiyari, Lucknow, U.P.",
     year: "2026",
     description: "A contemporary masterpiece featuring curved architectural frames, dramatic voids, and elegant brick textures. The façade balances bold design with warmth and functionality, resulting in a residence that stands out while remaining deeply connected to its surroundings.",
@@ -72,7 +82,7 @@ export const projects: Project[] = [
   {
     slug: "the-quiet-house",
     title: "The Quiet House",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Ayodhya, U.P.",
     year: "2022",
     description: "Designed around the philosophy that simplicity is the ultimate sophistication, this home embraces restrained elegance through clean forms, natural textures, and uncluttered spaces that foster a sense of calm and comfort. Thoughtfully balanced proportions, open balconies, and warm material accents create a timeless architectural expression where modern living meets tranquility.",
@@ -85,7 +95,7 @@ export const projects: Project[] = [
   {
     slug: "maison-blanche",
     title: "Maison Blanche",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Emaar, Gomti Nagar, Lucknow, U.P.",
     year: "2023",
     description: "With its crisp white façade, elegant arches, and ornamental details, this residence draws inspiration from timeless European villas while embracing the comforts of modern family living.",
@@ -99,7 +109,7 @@ export const projects: Project[] = [
   {
     slug: "tidal-house1",
     title: "Tidal House1",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Hokkaido, Japan",
     year: "2022",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780581565/dining_sketch_waqxbe.png",
@@ -117,7 +127,7 @@ export const projects: Project[] = [
   {
     slug: "the-urban-outcrop",
     title: "The Urban Outcrop",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Aziz Nagar, Madiyaon, Lucknow, U.P.",
     year: "2025",
     description: "A contemporary residence shaped by bold architectural framing, textured brick surfaces, and clean geometric forms. Thoughtfully composed volumes, open terraces, and a restrained material palette create a timeless design that balances modern aesthetics with everyday functionality.",
@@ -132,7 +142,7 @@ export const projects: Project[] = [
   {
     slug: "habitat-03",
     title: "Habitat 03",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Mehmodabad, U.P.",
     year: "2025",
     description: "A minimalist architectural composition focused on human experience, blending geometry, light, and materiality into a modern urban habitat. The design emphasizes simplicity and functionality, with clean lines, open spaces, and a restrained material palette that creates a serene and timeless living environment. Thoughtful spatial arrangements and carefully curated details enhance the connection between the interior and exterior, fostering a harmonious relationship between the built environment and its inhabitants.",
@@ -146,7 +156,7 @@ export const projects: Project[] = [
   {
     slug: "the-urban-colonnade",
     title: "The Urban Colonnade",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Sultanpur Road, Ahmamau, Lucknow, U.P.",
     year: "2025",
     description: "A contemporary residential development inspired by the timeless rhythm of arches and colonnades. Featuring spacious balconies, elegant material contrasts, and carefully crafted architectural details, the design creates a refined living environment that balances modern comfort with enduring sophistication.",
@@ -159,7 +169,7 @@ export const projects: Project[] = [
   {
     slug: "mishra-residence",
     title: "Mishra Residence",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Khargapur, Lucknow, U.P.",
     year: "2021",
     description: "A contemporary corner residence defined by bold geometric forms, floating planes, and a refined material palette. Layered balconies, expansive glazing, and carefully integrated landscaping create a dynamic architectural composition that balances modern aesthetics with comfortable living. Designed to make a statement from every perspective, the home embodies strength, elegance, and timeless contemporary design.",
@@ -174,7 +184,7 @@ export const projects: Project[] = [
   {
     slug: "technical-education-admin-block",
     title: "Technical Education Admin Block",
-    category: "Institutional",
+    category: [ProjectCategory.Institutional],
     location: "Lucknow, U.P.",
     year: "2021",
     description: "A landmark institutional building designed to inspire learning, innovation, and collaboration. Defined by its bold architectural presence, rhythmic vertical elements, and grand entrance plaza, the structure reflects the progressive spirit of technical education. The design combines functionality with a strong civic identity, creating an environment that fosters academic excellence and future-ready learning.",
@@ -188,7 +198,7 @@ export const projects: Project[] = [
   {
     slug: "technical-education-headquarter",
     title: "Technical Education Headquarter",
-    category: "Institutional",
+    category: [ProjectCategory.Institutional],
     location: "Hardoi, U.P.",
     year: "2022",
     description: "1. The Technical Education Headquarters is a contemporary institutional building designed to foster innovation, learning, and professional excellence. Its modern architectural language combines expansive glass façades, sustainable green elements, and distinctive geometric features that symbolize knowledge, creativity, and technological advancement. The prominent entrance, integrated accessibility features, and thoughtfully designed public spaces create a welcoming environment for students, educators, and industry professionals. As a center for technical learning and administration, the building reflects a commitment to empowering future generations through skill development, research, and innovation-driven education.\n\n2. This iconic entrance sculpture symbolizes the fusion of innovation, technical expertise, and practical learning. The interlocking gear and wrench elements represent engineering, technology, and problem-solving, while the dynamic circular form reflects continuous growth, progress, and the pursuit of excellence. Positioned at the forefront of the campus, it serves as a powerful landmark that embodies the institution’s commitment to shaping skilled professionals, fostering innovation, and driving technological advancement for the future.\n\n3. This architectural feature wall symbolizes the core values of technical education—innovation, skill development, and intellectual growth. The illuminated lightbulb motif represents creativity and new ideas, while the engineering and industrial icons highlight practical learning, technology, and problem-solving. Adjacent to it, the geometric portrait mural serves as a tribute to wisdom, vision, and lifelong learning. Together, these elements create a striking visual identity that reflects the institution’s mission of empowering future professionals through knowledge, innovation, and technical excellence.",
@@ -206,7 +216,7 @@ export const projects: Project[] = [
   {
     slug: "the-fifth-elevation",
     title: "The Fifth Elevation",
-    category: "Residential",
+    category: [ProjectCategory.Residential],
     location: "Dayal Residency, Chinhat, Lucknow, U.P.",
     year: "2024",
     thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1781194271/HARINAM_SIGH_RENDER_SKETCH_VIEW_ucuahq.png",

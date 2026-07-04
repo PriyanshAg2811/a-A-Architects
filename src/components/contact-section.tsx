@@ -8,6 +8,7 @@ import { FadeIn, TextReveal } from "./text-reveal";
 import { RippleButton } from "./ui/ripple-button";
 import { NoiseTexture } from "./ui/noise-texture";
 import { contactData } from "@/lib/contact";
+import { toast } from "sonner";
 
 interface ContactSectionProps {
   compact?: boolean;
@@ -17,27 +18,80 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    company: "",
+    phone: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { once: true });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+    const fullName = formData.fullName.trim();
+    const message = formData.message.trim();
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    if (!fullName) {
+      setSubmitError("Please enter your name.");
+      setIsSubmitting(false);
+      return;
+    }
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ fullName: "", email: "", company: "", message: "" });
-    }, 3000);
+    if (!phone) {
+      setSubmitError("Please enter your phone number.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setSubmitError("Please enter a valid email address.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!/^[0-9+\-().\s]{7,25}$/.test(phone) || phone.replace(/[^0-9]/g, "").length < 7) {
+      setSubmitError("Please enter a valid phone number.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const contactPromise = fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName,
+        email: email || undefined,
+        phone,
+        message,
+      }),
+    }).then(async (response) => {
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw new Error(body?.error || "Failed to send your message.");
+      }
+      return response;
+    });
+
+    try {
+      await toast.promise(contactPromise, {
+        loading: "Sending your message...",
+        success: "Message sent successfully.",
+        error: (err) =>
+          err instanceof Error ? err.message : "Failed to send your message.",
+      });
+
+      setFormData({ fullName: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to send your message.";
+      setSubmitError(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClasses =
@@ -164,30 +218,6 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 delay: 0.1,
               }}
             >
-              {isSubmitted && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-4xl bg-primary/90 text-center text-foreground">
-                  <div className="space-y-3">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-foreground/20 bg-background/90">
-                      <svg
-                        className="h-8 w-8"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <p className="text-xl font-semibold">Message Sent</p>
-                    <p className="text-sm opacity-80">
-                      We’ll be in touch soon.
-                    </p>
-                  </div>
-                </div>
-              )}
-
               <NoiseTexture className="rounded-4xl" />
 
               <div className={`grid gap-${compact ? "5" : "6"} sm:grid-cols-2`}>
@@ -225,28 +255,28 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     className={inputClasses}
-                    placeholder={contactData.email}
-                    required
+                    placeholder="Optional email"
                   />
                 </div>
               </div>
 
               <div className="mt-6">
                 <label
-                  htmlFor="company"
+                  htmlFor="phone"
                   className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block"
                 >
                   Phone Number
                 </label>
                 <Input
-                  id="company"
-                  type="text"
-                  value={formData.company}
+                  id="phone"
+                  type="tel"
+                  value={formData.phone}
                   onChange={(e) =>
-                    setFormData({ ...formData, company: e.target.value })
+                    setFormData({ ...formData, phone: e.target.value })
                   }
                   className={inputClasses}
-                  placeholder=""
+                  placeholder="Required phone number"
+                  required
                 />
               </div>
 
@@ -264,15 +294,19 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                     setFormData({ ...formData, message: e.target.value })
                   }
                   className={`${inputClasses} min-h-37.5`}
-                  placeholder="Tell us about your project..."
-                  required
+                  placeholder="Tell us about your project... (optional)"
                 />
               </div>
 
               <div className={`mt-8 flex flex-col items-start gap-${compact ? "3" : "4"} sm:flex-row sm:items-center sm:justify-between`}>
-                <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                  Ready to collaborate?
-                </p>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                    {/* Ready to collaborate? */}
+                  </p>
+                  {submitError ? (
+                    <p className="mt-2 text-sm text-destructive">{submitError}</p>
+                  ) : null}
+                </div>
                 <RippleButton
                   type="submit"
                   className="px-10"

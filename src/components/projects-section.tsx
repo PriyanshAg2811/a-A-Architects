@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState, useEffect, useLayoutEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { projects, ProjectCategory } from "@/lib/projects";
+import { projects, ProjectCategory, isProjectSectionArray } from "@/lib/projects";
 import { motion } from "framer-motion";
 
 export function ProjectsSection() {
@@ -146,6 +146,24 @@ export function ProjectsSection() {
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : null}
+                  {/* Hover overlay with bullet points for nested sections (desktop only) */}
+                  {isProjectSectionArray(project.sections) && (
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center hidden md:flex">
+                      <div className="bg-black/70 backdrop-blur-sm rounded p-6 max-w-xs">
+                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                          {project.sections.length} Sections
+                        </p>
+                        <ul className="space-y-2">
+                          {project.sections.map((section, idx) => (
+                            <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                              <span className="text-xs text-muted-foreground mt-1">•</span>
+                              <span>{section.title}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">

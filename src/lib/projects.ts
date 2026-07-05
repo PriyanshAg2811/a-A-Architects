@@ -1,3 +1,10 @@
+export type ProjectSectionItem = {
+  slug: string;
+  title: string;
+  description?: string;
+  images: string[];
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -7,9 +14,13 @@ export type Project = {
   description?: string;
   thumbnail: string;
   hoverImage?: string;
-  sections: string[];
+  sections: string[] | ProjectSectionItem[];
   isMain?: boolean;
 };
+
+export function isProjectSectionArray(sections: string[] | ProjectSectionItem[]): sections is ProjectSectionItem[] {
+  return Array.isArray(sections) && sections.length > 0 && 'slug' in sections[0];
+}
 
 export enum ProjectCategory {
   Residential = "Residential",
@@ -362,6 +373,47 @@ export const projects: Project[] = [
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198186/ROOM_WALL-01_1_pgw9jn.jpg",
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198197/ROOM-02_1_copy_eqrlby.jpg",
       "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198195/ROOM_WALL-02_copy_wzyu4o.jpg",
+    ],
+    isMain: true,
+  },
+  {
+    slug: "contemporary-living-showcase",
+    title: "Contemporary Living Showcase",
+    category: [ProjectCategory.Residential],
+    location: "Lucknow, U.P.",
+    year: "2024",
+    description: "A comprehensive residential project featuring multiple distinct living spaces, each with its own architectural language and design philosophy. This showcase demonstrates the versatility of contemporary design across different functional zones.",
+    thumbnail: "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780492961/Asymmetrical_Boxing_Main_Image_rqpitw.jpg",
+    sections: [
+      {
+        slug: "master-suite",
+        title: "Master Suite",
+        description: "The primary residential space featuring luxury finishes, extensive natural light, and seamless transitions between private and semi-private areas.",
+        images: [
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198106/WhatsApp_Image_2025-12-15_at_09.23.11_vllvxn.jpg",
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198104/WhatsApp_Image_2025-12-15_at_09.23.10_1_x8qeir.jpg",
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198189/ROOM-02-TV_copy_nyc685.jpg",
+        ],
+      },
+      {
+        slug: "living-dining-zone",
+        title: "Living & Dining Zone",
+        description: "An expansive open-plan space designed for both entertaining and intimate family moments, with careful attention to material continuity and spatial flow.",
+        images: [
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198186/ROOM_WALL-01_1_pgw9jn.jpg",
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198197/ROOM-02_1_copy_eqrlby.jpg",
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1783198195/ROOM_WALL-02_copy_wzyu4o.jpg",
+        ],
+      },
+      {
+        slug: "exterior-landscape",
+        title: "Exterior & Landscape",
+        description: "The outdoor environment is treated as an extension of the interior, with carefully designed plantings, material selection, and lighting that extends the architectural narrative.",
+        images: [
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572394/cvm_16_-_Photo_czr4m8.jpg",
+          "https://res.cloudinary.com/dhnxyhcwv/image/upload/v1780572393/cvm_12_-_Photo_k1tsxb.jpg",
+        ],
+      },
     ],
     isMain: true,
   },

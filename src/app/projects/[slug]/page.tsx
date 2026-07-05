@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ProjectSections } from "@/components/project-sections";
-import { projects } from "@/lib/projects";
+import { projects, isProjectSectionArray } from "@/lib/projects";
 
 export default async function ProjectPage({ params, searchParams }: { params: any; searchParams?: { category?: string } }) {
   const resolvedParams = await params;
@@ -14,6 +14,11 @@ export default async function ProjectPage({ params, searchParams }: { params: an
     (project) => project.slug === slug
   );
   if (!project) notFound();
+
+  // If this project has nested sections, redirect to the sections page
+  if (isProjectSectionArray(project.sections)) {
+    redirect(`/projects/${slug}/sections`);
+  }
 
   return (
     <>

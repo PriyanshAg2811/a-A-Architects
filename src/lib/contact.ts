@@ -10,6 +10,11 @@ export const contactData = {
   ],
   socialLinks: [
     {
+      href: "https://wa.me/919044975594",
+      label: "WhatsApp",
+      icon: "/whatsapp-svgrepo-com.svg",
+    },
+    {
       href: "https://www.instagram.com/a_plus_a__architects?igsh=MXE3dGJ3Nm40eDl4Yg==",
       label: "Instagram",
       icon: "/instagram-svgrepo-com.svg",

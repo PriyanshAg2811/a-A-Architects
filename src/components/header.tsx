@@ -14,8 +14,8 @@ import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
 import { contactData } from "@/lib/contact";
 
 export const navLinks = [
-  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
   { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
 ];

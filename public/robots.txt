@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://www.aplusa-architects.com/sitemap.xml

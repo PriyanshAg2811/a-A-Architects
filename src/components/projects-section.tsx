@@ -59,12 +59,12 @@ export function ProjectsSection() {
                 <p className="text-[10px] tracking-[0.35em] text-muted-foreground mb-3">
                   a+A Architects — Selected Work
                 </p>
-                <h1
+                <h2
                   className="text-5xl md:text-7xl font-light leading-none tracking-tight"
                   style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
                 >
                   Projects
-                </h1>
+                </h2>
               </div>
               <div className="text-right">
                 <p className="text-sm text-muted-foreground max-w-md">

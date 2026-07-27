@@ -8,26 +8,33 @@ import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aplusa-architects.com';
+
 export const metadata: Metadata = {
-  title: 'a+A Architects | Architect',
-  description: 'Award-winning architecture studio specializing in modern residential and commercial design. Creating spaces that inspire.',
+  metadataBase: new URL(siteUrl),
+  title: 'a+A Architects | a Plus A Architects',
+  description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as a + a architects and a plus a architects.',
+  keywords: ['a+a architects', 'a plus a architects', 'a + a architects', 'architecture studio', 'architectural firm'],
   generator: 'v0.app',
+  openGraph: {
+    title: 'a+A Architects | a Plus A Architects',
+    description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as a + a architects and a plus a architects.',
+    url: siteUrl,
+    siteName: 'a+A Architects',
+    type: 'website',
+    images: [{ url: '/placeholder.jpg', width: 1200, height: 630, alt: 'a+A Architects' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'a+A Architects | Architect',
+    description: 'Award-winning architecture studio specializing in modern residential and commercial design. Creating spaces that inspire.',
+    images: ['/placeholder.jpg'],
+  },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: {
+      url: '/icon.svg',
+      type: 'image/svg+xml',
+    },
   },
 }
 

@@ -3,20 +3,55 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ProjectSections } from "@/components/project-sections";
+import { StructuredData } from "@/components/structured-data";
 import { projects } from "@/lib/projects";
 
-export default async function ProjectPage({ params, searchParams }: { params: any; searchParams?: { category?: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
+  const project = projects.find((project) => project.slug === resolvedParams.slug);
+
+  if (!project) {
+    return {};
+  }
+
+  return {
+    title: `${project.title} | a+A Architects`,
+    description: project.description || `Explore ${project.title}, an architecture project by a+A Architects.`,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+  };
+}
+
+export default async function ProjectPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<{ category?: string }> }) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const { slug } = resolvedParams;
-  const category = searchParams?.category;
+  const category = resolvedSearchParams?.category;
 
   const project = projects.find(
     (project) => project.slug === slug
   );
   if (!project) notFound();
 
+  const projectSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    url: `https://www.aplusa-architects.com/projects/${project.slug}`,
+    author: {
+      '@type': 'Organization',
+      name: 'a+A Architects',
+      url: 'https://www.aplusa-architects.com',
+    },
+    keywords: project.category.join(', '),
+    locationCreated: project.location,
+  };
+
   return (
     <>
+      <StructuredData data={projectSchema} />
       <Header />
       <main className="bg-background text-foreground">
         <section className="px-6 py-24 md:px-12">

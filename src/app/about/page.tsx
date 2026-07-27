@@ -7,6 +7,9 @@ import { Footer } from "@/components/footer";
 export const metadata = {
   title: 'About | a+A Architects',
   description: 'Learn about a+A Architects and our architecture studio. Our philosophy and approach to design.',
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 export default function AboutPage() {
@@ -15,6 +18,7 @@ export default function AboutPage() {
       {/* <CursorFollower /> */}
       <Header />
       <main>
+        <h1 className="sr-only">About a+A Architects</h1>
         <AboutSection />
         <TeamSection />
       </main>

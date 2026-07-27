@@ -7,9 +7,18 @@ export type Project = {
   description?: string;
   thumbnail: string;
   hoverImage?: string;
-  sections: string[];
+  sections: string[] | ProjectSectionsProps[],
   isMain?: boolean;
 };
+
+export type ProjectSectionsProps = {
+  slug: string;
+  title: string;
+  description?: string;
+  thumbnail: string;
+  hoverImage?: string;
+  sections: string[],
+}
 
 export enum ProjectCategory {
   Residential = "Residential",

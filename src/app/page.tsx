@@ -19,21 +19,21 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'a+A Architects',
-    alternateName: ['a + a architects', 'a plus a architects', 'a+a architects'],
+    alternateName: ['Aplusa Architects', 'aplusa architects', 'a + a architects', 'a plus a architects', 'a+a architects'],
     url: 'https://www.aplusa-architects.com',
     sameAs: [
       'https://www.instagram.com/aplusaarchitects/',
       'https://www.linkedin.com/company/aplusaarchitects/'
     ],
     logo: 'https://www.aplusa-architects.com/icon.svg',
-    description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as a + a architects and a plus a architects.',
+    description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as Aplusa Architects, a+A architects, a + a architects, and a plus a architects.',
   };
 
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'a+A Architects',
-    alternateName: ['a + a architects', 'a plus a architects', 'a+a architects'],
+    alternateName: ['Aplusa Architects', 'aplusa architects', 'a + a architects', 'a plus a architects', 'a+a architects'],
     url: 'https://www.aplusa-architects.com',
     potentialAction: {
       '@type': 'SearchAction',
@@ -44,6 +44,9 @@ export default function Home() {
 
   return (
     <>
+      <h1 className="sr-only">
+        Aplusa Architects, also known as a+A Architects, a + a architects, and a plus a architects.
+      </h1>
       <StructuredData data={organizationSchema} />
       <StructuredData data={websiteSchema} />
       <Header />

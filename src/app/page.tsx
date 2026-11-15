@@ -7,17 +7,39 @@ import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { NoiseTexture } from "@/components/ui/noise-texture";
 import { StructuredData } from "@/components/structured-data";
+import { contactData } from "@/lib/contact";
+import type { Metadata } from "next";
 
-export const metadata = {
+const title = "Architects in Lucknow | a+A Architects";
+const description =
+  "Gomtinagar architects offering planning, consultancy, building plan approval assistance, facade design, interiors and 3D visualization in Lucknow.";
+
+export const metadata: Metadata = {
+  title,
+  description,
   alternates: {
     canonical: '/',
+  },
+  openGraph: {
+    title,
+    description,
+    url: "/",
+    siteName: "a+A Architects",
+    type: "website",
+    images: [{ url: "/images/hero/hero-light.png", alt: "a+A Architects" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/images/hero/hero-light.png"],
   },
 };
 
 export default function Home() {
   const organizationSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'LocalBusiness',
     name: 'a+A Architects',
     alternateName: ['Aplusa Architects', 'aplusa architects', 'a + a architects', 'a plus a architects', 'a+a architects'],
     url: 'https://www.aplusa-architects.com',
@@ -26,7 +48,17 @@ export default function Home() {
       'https://www.linkedin.com/company/aplusaarchitects/'
     ],
     logo: 'https://www.aplusa-architects.com/icon.svg',
-    description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as Aplusa Architects, a+A architects, a + a architects, and a plus a architects.',
+    description,
+    telephone: contactData.phone[0].replace(/\s/g, ""),
+    email: contactData.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: contactData.address[0],
+      addressLocality: "Lucknow",
+      addressRegion: "Uttar Pradesh",
+      postalCode: "226010",
+      addressCountry: "IN",
+    },
   };
 
   const websiteSchema = {
@@ -35,18 +67,10 @@ export default function Home() {
     name: 'a+A Architects',
     alternateName: ['Aplusa Architects', 'aplusa architects', 'a + a architects', 'a plus a architects', 'a+a architects'],
     url: 'https://www.aplusa-architects.com',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://www.aplusa-architects.com/projects',
-      'query-input': 'required name=search_term_string',
-    },
   };
 
   return (
     <>
-      <h1 className="sr-only">
-        Aplusa Architects, also known as a+A Architects, a + a architects, and a plus a architects.
-      </h1>
       <StructuredData data={organizationSchema} />
       <StructuredData data={websiteSchema} />
       <Header />

@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { FadeIn, TextReveal } from "./text-reveal";
 import { RippleButton } from "./ui/ripple-button";
 import { NoiseTexture } from "./ui/noise-texture";
-import { contactData } from "@/lib/contact";
+import { contactData, contactServiceOptions } from "@/lib/contact";
 import { toast } from "sonner";
 
 interface ContactSectionProps {
@@ -19,6 +19,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
     fullName: "",
     email: "",
     phone: "",
+    service: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,6 +29,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -67,6 +69,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
         fullName,
         email: email || undefined,
         phone,
+        service: formData.service || undefined,
         message,
       }),
     }).then(async (response) => {
@@ -78,14 +81,15 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
     });
 
     try {
-      await toast.promise(contactPromise, {
+      toast.promise(contactPromise, {
         loading: "Sending your message...",
         success: "Message sent successfully.",
         error: (err) =>
           err instanceof Error ? err.message : "Failed to send your message.",
       });
 
-      setFormData({ fullName: "", email: "", phone: "", message: "" });
+      await contactPromise;
+      setFormData({ fullName: "", email: "", phone: "", service: "", message: "" });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to send your message.";
       setSubmitError(message);
@@ -278,6 +282,31 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                   placeholder="Required phone number"
                   required
                 />
+              </div>
+
+              <div className="mt-6">
+                <label
+                  htmlFor="service"
+                  className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-2 block"
+                >
+                  Service interested in
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service}
+                  onChange={(e) =>
+                    setFormData({ ...formData, service: e.target.value })
+                  }
+                  className={`${inputClasses} w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2`}
+                >
+                  <option value="" className="bg-background text-foreground">Select a service (optional)</option>
+                  {contactServiceOptions.map((service) => (
+                    <option key={service} value={service} className="bg-background text-foreground">
+                      {service}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="mt-6">

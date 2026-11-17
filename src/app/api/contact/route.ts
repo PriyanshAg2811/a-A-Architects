@@ -1,10 +1,12 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { contactServiceOptions } from "@/lib/contact";
 
 export interface ContactFormData {
   fullName: string;
   email?: string;
   phone: string;
+  service?: string;
   message?: string;
 }
 
@@ -47,6 +49,10 @@ async function sendEmail(data: ContactFormData) {
           <td>${data.phone || "Not provided"}</td>
         </tr>
         <tr>
+          <td><strong>Service interested in</strong></td>
+          <td>${data.service || "Not specified"}</td>
+        </tr>
+        <tr>
           <td><strong>Message</strong></td>
           <td>${data.message ? data.message.replace(/\n/g, "<br>") : "Not provided"}</td>
         </tr>
@@ -63,6 +69,15 @@ export async function POST(request: Request) {
     const phone = data.phone?.trim();
     const fullName = data.fullName?.trim();
     const message = data.message?.trim() ?? "";
+    const service = typeof data.service === "string" ? data.service.trim() : "";
+
+    if ((data.service != null && typeof data.service !== "string") ||
+        (service && !contactServiceOptions.includes(service))) {
+      return NextResponse.json(
+        { error: "Please select a valid service." },
+        { status: 400 }
+      );
+    }
 
     if (!fullName || !phone) {
       return NextResponse.json(
@@ -89,6 +104,7 @@ export async function POST(request: Request) {
       fullName,
       email: email || undefined,
       phone,
+      service: service || undefined,
       message,
     });
     return NextResponse.json({ success: true });

@@ -3,7 +3,7 @@ export const contactData = {
   description:
     "Whether you have a specific project in mind or simply want to explore possibilities, we'd love to hear from you.",
   email: "aplusaarchitects@yahoo.com",
-  phone: ["+91 90449 75594", "+91 8601935657"],
+  phone: ["+91 90449 75594", "+91 86019 35657"],
   address: [
     "3/202 Virat Khand, Gomtinagar",
     "Lucknow, U.P. 226010",

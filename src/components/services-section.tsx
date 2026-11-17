@@ -27,9 +27,10 @@ export function ServicesSection({ standalone = false }: { standalone?: boolean }
           </TextReveal>
           <FadeIn delay={0.2}>
             <p className="text-muted-foreground leading-relaxed">
-              Our Gomtinagar studio serves clients across Lucknow, Uttar Pradesh,
-              and the rest of India. In and around Lucknow, we work in Indira Nagar,
-              Chinhat, Alambagh, Charbagh, Mohanlalganj, and Bakshi Ka Talab.
+              Whether you're planning a home, shaping a workplace, or rethinking
+              an existing space, we can help you work through the design decisions
+              that matter to your project. From our studio in Gomti Nagar, Lucknow,
+              we work with clients across Uttar Pradesh and throughout India.
             </p>
           </FadeIn>
         </div>

@@ -57,8 +57,10 @@ export function HeroSection() {
           <div className="mb-6">
             <TextReveal delay={0.2}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-tight">
-                Designing Spaces That{" "}
-                <span className="block italic font-normal">Inspire</span>
+                Designing Spaces{" "}
+                <span className="whitespace-nowrap">
+                  That <em className="font-normal">Inspire</em>
+                </span>
               </h1>
             </TextReveal>
           </div>

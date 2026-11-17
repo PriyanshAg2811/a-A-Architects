@@ -107,7 +107,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
           <div>
             <FadeIn>
               <p className="text-sm uppercase tracking-widest opacity-60 mb-2">
-                Contact
+                Contact Us
               </p>
             </FadeIn>
             <TextReveal>
@@ -236,7 +236,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                       setFormData({ ...formData, fullName: e.target.value })
                     }
                     className={inputClasses}
-                    placeholder="Ananya Singh"
+                    placeholder="Your Name"
                     required
                   />
                 </div>

@@ -1,3 +1,13 @@
+export const contactServiceOptions = [
+  "Architecture & Planning",
+  "Architecture Consultancy",
+  "Map Approval",
+  "Building Exterior & Facade Design",
+  "Interior Design",
+  "3D Design",
+  "Other / Help me decide",
+];
+
 export const contactData = {
   heading: "Let's discuss your project.",
   description:

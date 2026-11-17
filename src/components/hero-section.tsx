@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { MagneticButton } from "./magnetic-button";
 import { TextReveal, FadeIn } from "./text-reveal";
+import { contactData } from "@/lib/contact";
 
 export function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -56,46 +57,39 @@ export function HeroSection() {
           <div className="mb-6">
             <TextReveal delay={0.2}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-tight">
-                Designing Spaces That
+                Designing Spaces{" "}
+                <span className="whitespace-nowrap">
+                  That <em className="font-normal">Inspire</em>
+                </span>
               </h1>
-            </TextReveal>
-            <TextReveal delay={0.3}>
-              <span className="text-4xl md:text-6xl lg:text-7xl italic font-normal">
-                Inspire
-              </span>
             </TextReveal>
           </div>
 
           <FadeIn delay={0.4}>
             <p className="text-lg mb-8 max-w-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)] text-foreground dark:text-slate-200">
-              An Architecture and design studio delivering bespoke residential,
-              commercial, institutional, hospitality, and interior projects
-              through thoughtful, client-focused design. We craft environments
-              that harmonize form, function, and nature.
+              Based in Lucknow, we design residential, commercial, institutional,
+              hospitality, and interior projects across Uttar Pradesh and throughout
+              India. We craft environments that harmonize form, function, and nature.
             </p>
           </FadeIn>
 
           <FadeIn delay={0.5}>
             <div className="flex flex-col sm:flex-row gap-4">
               <MagneticButton>
-                <Button asChild size="lg" className="px-8 group">
-                  <Link href="/projects">
-                    <span>View Projects</span>
-                    <motion.span
-                      className="inline-block ml-2"
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                    >
-                      &rarr;
-                    </motion.span>
-                  </Link>
+                <Button asChild size="lg" className="px-8">
+                  <a href={`tel:${contactData.phone[0].replace(/\s/g, "")}`}>
+                    Call {contactData.phone[0]}
+                  </a>
                 </Button>
               </MagneticButton>
               <MagneticButton>
                 <Button asChild variant="outline" size="lg" className="px-8">
-                  <Link href="/contact">Get in Touch</Link>
+                  <Link href="/projects">View Projects</Link>
                 </Button>
               </MagneticButton>
+              <Link href="/contact" className="self-start sm:self-center text-sm underline underline-offset-4">
+                Get in Touch
+              </Link>
             </div>
           </FadeIn>
         </div>

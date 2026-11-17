@@ -1,7 +1,8 @@
 export const services = [
   {
     number: "01",
-    title: "Architectural Design",
+    title: "Architecture & Planning",
+    project: { slug: "serenity-edge-residence", label: "Serenity Edge Residence in Indira Nagar" },
     description:
       "Comprehensive design services from concept to construction documents, creating spaces that balance aesthetics with functionality.",
     expanded:
@@ -9,7 +10,8 @@ export const services = [
   },
   {
     number: "02",
-    title: "Interior Architecture",
+    title: "Interior Design",
+    project: { slug: "curated-spaces", label: "Curated Spaces in Gomtinagar" },
     description:
       "Thoughtful interior spaces that complement the architectural vision, selecting materials, finishes, and details with precision.",
     expanded:
@@ -33,11 +35,11 @@ export const services = [
   },
   {
     number: "05",
-    title: "Layout Approval Coordination",
+    title: "Building Plan Approval Assistance",
     description:
       "Preparation, submission, and coordination of layout approval documents with concerned authorities, including follow-up, revisions, and compliance with applicable planning and development regulations.",
     expanded:
-      "Currently Coordinating with :-\n1. Lucknow Development Authority\n2. Avas Vikas Parishad",
+      "We help with map approval by preparing drawings, coordinating submissions and addressing revisions with the relevant authority, including the Lucknow Development Authority and Avas Vikas Parishad where applicable.",
   },
   {
     number: "06",
@@ -62,5 +64,30 @@ export const services = [
       "End-to-end project oversight ensuring quality, budget adherence, and timely delivery of your vision.",
     expanded:
       "We coordinate with contractors, consultants, and craftspeople to navigate the complexities of construction, advocating for your interests at every stage.",
+  },
+  {
+    number: "09",
+    title: "Architectural Consultancy",
+    description:
+      "Get architectural advice when evaluating a site, reviewing a design or deciding what to do next.",
+    expanded:
+      "Discuss your site, project brief and planning priorities with our team before committing to a design direction.",
+  },
+  {
+    number: "10",
+    title: "Building Exterior & Facade Design",
+    project: { slug: "the-fifth-elevation", label: "The Fifth Elevation in Chinhat" },
+    description:
+      "Design building elevations and exteriors with a focus on proportions, materials, shading and daylight.",
+    expanded:
+      "We develop the facade around the building layout and site, considering openings, finishes and how the exterior will be experienced from the street.",
+  },
+  {
+    number: "11",
+    title: "3D Architectural Design & Visualization",
+    description:
+      "See how a building or interior could look before construction through 3D views and visualizations.",
+    expanded:
+      "Use 3D views to review spatial proportions, materials and design options with the project team.",
   },
 ];

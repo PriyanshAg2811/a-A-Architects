@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn, TextReveal } from "./text-reveal";
 import { services } from "../lib/services";
 
-export function ServicesSection() {
+export function ServicesSection({ standalone = false }: { standalone?: boolean }) {
   const [expandedService, setExpandedService] = useState<string | null>(null);
+  const Heading = standalone ? "h1" : "h2";
 
   return (
     <section id="services" className="py-24 md:py-32 bg-card overflow-hidden">
@@ -20,15 +21,16 @@ export function ServicesSection() {
             </p>
           </FadeIn>
           <TextReveal>
-            <h2 className="text-3xl md:text-4xl font-light mb-6">
-              What We Offer
-            </h2>
+            <Heading className="text-3xl md:text-4xl font-light mb-6">
+              Architecture &amp; Design Services
+            </Heading>
           </TextReveal>
           <FadeIn delay={0.2}>
             <p className="text-muted-foreground leading-relaxed">
-              From initial concept through final construction, we provide
-              comprehensive architectural services tailored to each project&apos;s
-              unique requirements.
+              Whether you're planning a home, shaping a workplace, or rethinking
+              an existing space, we can help you work through the design decisions
+              that matter to your project. From our studio in Gomti Nagar, Lucknow,
+              we work with clients across Uttar Pradesh and throughout India.
             </p>
           </FadeIn>
         </div>
@@ -98,6 +100,15 @@ function ServiceCard({ service, index, isExpanded, onToggle }: ServiceCardProps)
             <p className="text-sm text-muted-foreground leading-relaxed ml-12">
               {service.description}
             </p>
+            {service.project && (
+              <Link
+                href={`/projects/${service.project.slug}`}
+                className="inline-block ml-12 mt-3 text-sm underline underline-offset-4"
+                onClick={(event) => event.stopPropagation()}
+              >
+                {service.project.label}
+              </Link>
+            )}
 
             {/* Expanded Content */}
             <AnimatePresence>

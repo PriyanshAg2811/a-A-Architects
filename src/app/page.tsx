@@ -7,7 +7,7 @@ import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { NoiseTexture } from "@/components/ui/noise-texture";
 import { StructuredData } from "@/components/structured-data";
-import { contactData } from "@/lib/contact";
+import { businessId } from "@/lib/business";
 import type { Metadata } from "next";
 
 const title = "Architects in Lucknow | a+A Architects";
@@ -37,34 +37,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'a+A Architects',
-    alternateName: ['Aplusa Architects', 'aplusa architects', 'a + a architects', 'a plus a architects', 'a+a architects'],
-    url: 'https://www.aplusa-architects.com',
-    sameAs: [
-      'https://www.instagram.com/aplusaarchitects/',
-      'https://www.linkedin.com/company/aplusaarchitects/'
-    ],
-    logo: 'https://www.aplusa-architects.com/icon.svg',
-    description,
-    telephone: contactData.phone[0].replace(/\s/g, ""),
-    email: contactData.email,
-    areaServed: { "@type": "Country", name: "India" },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: contactData.address[0],
-      addressLocality: "Lucknow",
-      addressRegion: "Uttar Pradesh",
-      postalCode: "226010",
-      addressCountry: "IN",
-    },
-  };
-
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    publisher: { '@id': businessId },
     name: 'a+A Architects',
     alternateName: ['Aplusa Architects', 'aplusa architects', 'a + a architects', 'a plus a architects', 'a+a architects'],
     url: 'https://www.aplusa-architects.com',
@@ -72,7 +48,6 @@ export default function Home() {
 
   return (
     <>
-      <StructuredData data={organizationSchema} />
       <StructuredData data={websiteSchema} />
       <Header />
       <main>

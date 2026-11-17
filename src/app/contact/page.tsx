@@ -3,6 +3,7 @@ import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
 import { contactData } from "@/lib/contact";
+import { businessId } from "@/lib/business";
 
 const officeMapEmbed = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.475071838638!2d81.01745957522235!3d26.85664347668059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be3f0bb83be85%3A0xc1ffb4b9f5366f9d!2sa%2BA%20Architects!5e0!3m2!1sen!2sin!4v1794899677954!5m2!1sen!2sin";
 const officeMapLink = "https://www.google.com/maps?cid=13979090479157243805";
@@ -19,6 +20,7 @@ export default function ContactPage() {
   const contactPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
+    mainEntity: { "@id": businessId },
     name: 'Contact a+A Architects',
     url: 'https://www.aplusa-architects.com/contact',
     description: 'Get in touch with a+A Architects. Contact us for your next architecture project.',

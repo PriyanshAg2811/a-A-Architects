@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { StructuredData } from '@/components/structured-data';
+import { businessSchema, businessDescription } from '@/lib/business';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 
@@ -9,12 +11,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aplusa-architec
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'a+A Architects | a Plus A Architects | Aplusa Architects',
-  description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as a+A architects, a + a architects, a plus a architects, and Aplusa Architects.',
+  description: businessDescription,
   keywords: ['a+A architects', 'a+a architects', 'a + a architects', 'a plus a architects', 'Aplusa Architects', 'aplusa architects', 'architecture studio', 'architectural firm'],
   generator: 'v0.app',
   openGraph: {
     title: 'a+A Architects | a Plus A Architects | Aplusa Architects',
-    description: 'Award-winning architecture studio specializing in modern residential and commercial design, also known as a+A architects, a + a architects, a plus a architects, and Aplusa Architects.',
+    description: businessDescription,
     url: siteUrl,
     siteName: 'a+A Architects',
     type: 'website',
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'a+A Architects | Aplusa Architects',
-    description: 'Award-winning architecture studio specializing in modern residential and commercial design. Creating spaces that inspire.',
+    description: businessDescription,
     images: ['/placeholder.jpg'],
   },
   icons: {
@@ -51,6 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased" suppressHydrationWarning={true}>
+        <StructuredData data={businessSchema} />
         <script
           dangerouslySetInnerHTML={{
             __html: `

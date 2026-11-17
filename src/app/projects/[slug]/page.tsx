@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { ProjectSections } from "@/components/project-sections";
 import { StructuredData } from "@/components/structured-data";
 import { projects } from "@/lib/projects";
+import { businessId } from "@/lib/business";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -41,12 +42,13 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
     description: project.description,
     url: `https://www.aplusa-architects.com/projects/${project.slug}`,
     author: {
+      '@id': businessId,
       '@type': 'Organization',
       name: 'a+A Architects',
       url: 'https://www.aplusa-architects.com',
     },
     keywords: project.category.join(', '),
-    locationCreated: project.location,
+    locationCreated: { '@type': 'Place', name: project.location },
   };
 
   return (

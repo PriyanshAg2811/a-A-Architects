@@ -65,10 +65,9 @@ export function HeroSection() {
 
           <FadeIn delay={0.4}>
             <p className="text-lg mb-8 max-w-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)] text-foreground dark:text-slate-200">
-              An architecture and design studio in Lucknow delivering bespoke residential,
-              commercial, institutional, hospitality, and interior projects
-              through thoughtful, client-focused design. We craft environments
-              that harmonize form, function, and nature.
+              Based in Lucknow, we design residential, commercial, institutional,
+              hospitality, and interior projects across Uttar Pradesh and throughout
+              India. We craft environments that harmonize form, function, and nature.
             </p>
           </FadeIn>
 

@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
 
 const description =
-  "Explore architecture, planning, consultancy, building plan approval assistance, facade design, interior design and 3D visualization in Lucknow.";
+  "Explore architecture, planning, consultancy, facade design, interiors, and 3D visualization from our Lucknow studio, serving clients across India.";
 
 export const metadata = {
   title: 'Architecture & Design Services in Lucknow | a+A Architects',
@@ -21,6 +21,7 @@ export default function Home() {
     name: 'Architectural Services by a+A Architects',
     url: 'https://www.aplusa-architects.com/services',
     description,
+    areaServed: { "@type": "Country", name: "India" },
     provider: {
       '@type': 'Organization',
       name: 'a+A Architects',

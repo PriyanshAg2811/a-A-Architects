@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 
 const title = "Architects in Lucknow | a+A Architects";
 const description =
-  "Gomtinagar architects offering planning, consultancy, building plan approval assistance, facade design, interiors and 3D visualization in Lucknow.";
+  "Lucknow-based architects serving Uttar Pradesh and clients across India with architecture, planning, facade design, interiors, and 3D visualization.";
 
 export const metadata: Metadata = {
   title,
@@ -51,6 +51,7 @@ export default function Home() {
     description,
     telephone: contactData.phone[0].replace(/\s/g, ""),
     email: contactData.email,
+    areaServed: { "@type": "Country", name: "India" },
     address: {
       "@type": "PostalAddress",
       streetAddress: contactData.address[0],

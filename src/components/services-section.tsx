@@ -22,14 +22,14 @@ export function ServicesSection({ standalone = false }: { standalone?: boolean }
           </FadeIn>
           <TextReveal>
             <Heading className="text-3xl md:text-4xl font-light mb-6">
-              Architecture &amp; Design Services in Lucknow
+              Architecture &amp; Design Services
             </Heading>
           </TextReveal>
           <FadeIn delay={0.2}>
             <p className="text-muted-foreground leading-relaxed">
-              From our Gomtinagar studio, we serve clients in Indira Nagar,
-              Chinhat, Alambagh, Charbagh, Mohanlalganj, Bakshi Ka Talab and
-              across Lucknow.
+              Our Gomtinagar studio serves clients across Lucknow, Uttar Pradesh,
+              and the rest of India. In and around Lucknow, we work in Indira Nagar,
+              Chinhat, Alambagh, Charbagh, Mohanlalganj, and Bakshi Ka Talab.
             </p>
           </FadeIn>
         </div>

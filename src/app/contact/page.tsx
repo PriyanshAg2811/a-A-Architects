@@ -59,7 +59,7 @@ export default function ContactPage() {
               title="Google Maps location for a+A Architects in Gomtinagar, Lucknow"
               width={600}
               height={450}
-              className="block h-64 w-full border-0 saturate-[.8] dark:brightness-[.85] dark:saturate-[.65] sm:h-80"
+              className="block h-64 w-full border-0 saturate-[.8] dark:[filter:invert(.92)_hue-rotate(180deg)_saturate(.7)_brightness(.88)] sm:h-80"
               allowFullScreen
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"

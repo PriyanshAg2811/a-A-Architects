@@ -140,7 +140,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 </p>
                 <a
                   href={`mailto:${contactData.email}`}
-                  className="hover:opacity-70 transition-opacity inline-block"
+                  className="inline-block underline decoration-border underline-offset-4 transition-colors hover:decoration-current"
                 >
                   {contactData.email}
                 </a>
@@ -154,7 +154,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                     <span key={phoneNumber}>
                       <a
                         href={`tel:${phoneNumber.replace(/[^0-9+]/g, "")}`}
-                        className="hover:opacity-70 transition-opacity"
+                        className="underline decoration-border underline-offset-4 transition-colors hover:decoration-current"
                       >
                         {phoneNumber}
                       </a>

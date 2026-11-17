@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { Header } from "@/components/header";
 import { ServicesSection } from "@/components/services-section";
 import { Footer } from "@/components/footer";
@@ -9,13 +10,7 @@ import { businessId } from "@/lib/business";
 const description =
   "Explore architecture, planning, consultancy, facade design, interiors, and 3D visualization from our Lucknow studio, serving clients across India.";
 
-export const metadata = {
-  title: 'Architecture & Design Services in Lucknow | a+A Architects',
-  description,
-  alternates: {
-    canonical: '/services',
-  },
-};
+export const metadata = pageMetadata('Architecture & Design Services in Lucknow | a+A Architects', description, '/services');
 
 export default function Home() {
   const servicesPageSchema = {
@@ -48,7 +43,7 @@ export default function Home() {
     <>
       <StructuredData data={servicesPageSchema} />
       <Header />
-      <main>
+      <main id="main-content">
         <ServicesSection standalone />
         <ServiceQuestions />
       </main>

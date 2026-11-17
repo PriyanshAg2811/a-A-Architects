@@ -1,6 +1,20 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 import { contactServiceOptions } from "@/lib/contact";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  fullName: z.string().trim().min(1).max(120),
+  email: z.string().trim().max(254).email().optional(),
+  phone: z.string().trim().max(25).refine(isValidPhone),
+  service: z.string().trim().refine(value => !value || contactServiceOptions.includes(value)).optional(),
+  message: z.string().trim().max(5000).optional(),
+  website: z.string().max(0).optional(),
+});
+
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]!);
+}
 
 export interface ContactFormData {
   fullName: string;
@@ -13,6 +27,8 @@ export interface ContactFormData {
 const transporter = nodemailer.createTransport({
   service:process.env.SMTP_SERVICE,
   secure: true,
+  connectionTimeout: 15000,
+  socketTimeout: 20000,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
@@ -38,23 +54,23 @@ async function sendEmail(data: ContactFormData) {
       <table cellpadding="8" cellspacing="0" border="1" style="border-collapse: collapse;">
         <tr>
           <td><strong>Full Name</strong></td>
-          <td>${data.fullName}</td>
+          <td>${escapeHtml(data.fullName)}</td>
         </tr>
         <tr>
           <td><strong>Email</strong></td>
-          <td>${data.email ?? "Not provided"}</td>
+          <td>${escapeHtml(data.email ?? "Not provided")}</td>
         </tr>
         <tr>
           <td><strong>Phone Number</strong></td>
-          <td>${data.phone || "Not provided"}</td>
+          <td>${escapeHtml(data.phone || "Not provided")}</td>
         </tr>
         <tr>
           <td><strong>Service interested in</strong></td>
-          <td>${data.service || "Not specified"}</td>
+          <td>${escapeHtml(data.service || "Not specified")}</td>
         </tr>
         <tr>
           <td><strong>Message</strong></td>
-          <td>${data.message ? data.message.replace(/\n/g, "<br>") : "Not provided"}</td>
+          <td>${data.message ? escapeHtml(data.message).replace(/\n/g, "<br>") : "Not provided"}</td>
         </tr>
       </table>
     `,
@@ -63,7 +79,14 @@ async function sendEmail(data: ContactFormData) {
 
 export async function POST(request: Request) {
   try {
-    const data = (await request.json()) as ContactFormData;
+    if (Number(request.headers.get("content-length")) > 32768) return NextResponse.json({ error: "Message is too large." }, { status: 413 });
+    const raw = await request.text();
+    if (raw.length > 32768) return NextResponse.json({ error: "Message is too large." }, { status: 413 });
+    let payload: unknown;
+    try { payload = JSON.parse(raw); } catch { return NextResponse.json({ error: "Invalid message format." }, { status: 400 }); }
+    const result = contactSchema.safeParse(payload);
+    if (!result.success) return NextResponse.json({ error: "Please check your name, phone, email and message length." }, { status: 400 });
+    const data = result.data;
 
     const email = data.email?.trim();
     const phone = data.phone?.trim();

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { PerformanceObserver } from '@/components/performance-observer';
 import './globals.css'
 import { StructuredData } from '@/components/structured-data';
 import { businessSchema, businessDescription } from '@/lib/business';
@@ -20,13 +21,13 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: 'a+A Architects',
     type: 'website',
-    images: [{ url: '/placeholder.jpg', width: 1200, height: 630, alt: 'a+A Architects' }],
+    images: [{ url: '/images/hero/hero-light-1672.webp', width: 1200, height: 630, alt: 'a+A Architects' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'a+A Architects | Aplusa Architects',
     description: businessDescription,
-    images: ['/placeholder.jpg'],
+    images: ['/images/hero/hero-light-1672.webp'],
   },
   icons: {
     icon: [
@@ -51,31 +52,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <body className="font-sans antialiased" suppressHydrationWarning={true}>
         <StructuredData data={businessSchema} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const storedTheme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const darkMode = storedTheme === 'dark' || (!storedTheme && prefersDark);
-                document.documentElement.classList.toggle('dark', darkMode);
-              } catch (error) {}
-            `,
-          }}
-        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:bg-background focus:p-3 focus:text-foreground">Skip to content</a>
           {children}
           <SonnerToaster />
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NEXT_PUBLIC_ENABLE_ANALYTICS_EVENTS === 'true' && <PerformanceObserver />}
       </body>
     </html>
   )

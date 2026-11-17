@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { Header } from "@/components/header";
 import { AboutSection } from "@/components/about-section";
 import { TeamSection } from "@/components/team-section";
@@ -5,13 +6,7 @@ import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
 // import { CursorFollower } from "@/components/cursor-follower";
 
-export const metadata = {
-  title: 'About | a+A Architects',
-  description: 'Learn about a+A Architects and our architecture studio. Our philosophy and approach to design.',
-  alternates: {
-    canonical: '/about',
-  },
-};
+export const metadata = pageMetadata("About | a+A Architects", "Learn about a+A Architects and our architecture studio. Our philosophy and approach to design.", "/about");
 
 export default function AboutPage() {
   const aboutPageSchema = {
@@ -27,7 +22,7 @@ export default function AboutPage() {
       <StructuredData data={aboutPageSchema} />
       {/* <CursorFollower /> */}
       <Header />
-      <main>
+      <main id="main-content">
         <h1 className="sr-only">About a+A Architects</h1>
         <AboutSection />
         <TeamSection />

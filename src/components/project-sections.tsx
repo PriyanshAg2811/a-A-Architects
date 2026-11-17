@@ -1,7 +1,8 @@
 "use client";
-import Image from "next/image";
+import { SiteImage as Image } from "./site-image";
 import { motion } from "framer-motion";
 import type { Project } from "@/lib/projects";
+import dimensions from "@/lib/image-dimensions.json";
 import { BlurFade } from "./ui/blur-fade";
 
 interface ProjectSectionsProps {
@@ -21,9 +22,10 @@ function Img({
   index?: number;
   priority?: boolean;
 }) {
+  const size = (dimensions as Record<string, { width: number; height: number }>)[src];
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.06 }}
       transition={{ duration: 0.8, delay: (index % 2) * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
@@ -33,8 +35,9 @@ function Img({
         <Image
           src={src}
           alt={alt}
-          width={1800}
-          height={1200}
+          width={size?.width ?? 1800}
+          height={size?.height ?? 1200}
+          sizes="(max-width: 768px) calc(100vw - 48px), (max-width: 1024px) calc(100vw - 96px), 70vw"
           priority={priority}
           className="w-full h-auto block"
         />
@@ -168,7 +171,7 @@ function Gallery({ images, title }: { images: string[]; title: string }) {
 }
 
 export function ProjectSections({ project }: ProjectSectionsProps) {
-  const images = project.sections
+  const images = project.sections.flatMap((section) => typeof section === "string" ? [section] : section.sections);
   const description = project.description || "";
 
   return (
@@ -177,7 +180,7 @@ export function ProjectSections({ project }: ProjectSectionsProps) {
 
         {/* Sidebar — sticky, shown once */}
         <motion.aside
-          initial={{ opacity: 0, y: 32 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="lg:col-span-3 lg:sticky lg:top-24"
@@ -186,19 +189,19 @@ export function ProjectSections({ project }: ProjectSectionsProps) {
             <dl className="space-y-4 text-[16px] text-muted-foreground">
               {project.location && (
                 <div className="flex flex-col gap-0.5">
-                  <dt className="uppercase tracking-[0.2em] text-xs opacity-70">Location</dt>
+                  <dt className="uppercase tracking-[0.2em] text-xs">Location</dt>
                   <dd>{project.location}</dd>
                 </div>
               )}
               {project.year && (
                 <div className="flex flex-col gap-0.5">
-                  <dt className="uppercase tracking-[0.2em] text-xs opacity-70">Year</dt>
+                  <dt className="uppercase tracking-[0.2em] text-xs">Year</dt>
                   <dd>{project.year}</dd>
                 </div>
               )}
               {project.category && (
                 <div className="flex flex-col gap-0.5">
-                  <dt className="uppercase tracking-[0.2em] text-xs opacity-70">Type</dt>
+                  <dt className="uppercase tracking-[0.2em] text-xs">Type</dt>
                   <dd>{project.category}</dd>
                 </div>
               )}

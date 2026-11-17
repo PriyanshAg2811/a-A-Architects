@@ -149,3 +149,20 @@
     animation: none;
     mix-blend-mode: normal;
 }
+
+/* Same artwork and crop, optimized once at build preparation rather than per visit. */
+.hero-artwork { background-image: url('/images/hero/hero-light-1672.webp'); }
+.dark .hero-artwork { background-image: url('/images/hero/hero-dark-1672.webp'); }
+@supports (interpolate-size: allow-keywords) {
+  .service-disclosure { interpolate-size: allow-keywords; }
+  .service-disclosure::details-content { height: 0; overflow: clip; transition: height .3s ease, content-visibility .3s allow-discrete; }
+  .service-disclosure[open]::details-content { height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FadeIn, TextReveal } from "./text-reveal";
 import { RippleButton } from "./ui/ripple-button";
-import { NoiseTexture } from "./ui/noise-texture";
 import { contactData, contactServiceOptions } from "@/lib/contact";
 import { toast } from "sonner";
+import Image from "next/image";
+import { trackEnquiry } from "@/lib/analytics";
 
 interface ContactSectionProps {
   compact?: boolean;
@@ -24,6 +25,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { once: true });
 
@@ -32,6 +34,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
     if (isSubmitting) return;
     setIsSubmitting(true);
     setSubmitError(null);
+    setSubmitSuccess(false);
 
     const email = formData.email.trim();
     const phone = formData.phone.trim();
@@ -62,7 +65,10 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
       return;
     }
 
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 20000);
     const contactPromise = fetch("/api/contact", {
+      signal: controller.signal,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -71,6 +77,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
         phone,
         service: formData.service || undefined,
         message,
+        website: new FormData(e.currentTarget).get("website") || "",
       }),
     }).then(async (response) => {
       if (!response.ok) {
@@ -89,11 +96,16 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
       });
 
       await contactPromise;
+      setSubmitSuccess(true);
+      trackEnquiry();
       setFormData({ fullName: "", email: "", phone: "", service: "", message: "" });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to send your message.";
+      const message = error instanceof Error && error.name === "AbortError"
+        ? "The connection timed out. Your details are still here. Please contact us by phone to confirm before sending again."
+        : error instanceof Error ? error.message : "Failed to send your message.";
       setSubmitError(message);
     } finally {
+      window.clearTimeout(timeout);
       setIsSubmitting(false);
     }
   };
@@ -127,7 +139,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
 
             <motion.div
               className="space-y-6"
-              initial="hidden"
+              initial={false}
               whileInView="visible"
               viewport={{ once: true }}
               variants={{
@@ -139,7 +151,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
               }}
             >
               <div>
-                <p className="text-xs uppercase tracking-widest opacity-50 mb-1">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
                   Email
                 </p>
                 <a
@@ -150,7 +162,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-widest opacity-50 mb-1">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
                   Phone
                 </p>
                 <div>
@@ -169,7 +181,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-widest opacity-50 mb-1">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
                   Address
                 </p>
                 <p className="inline-block">
@@ -185,7 +197,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
 
             <motion.div
               className="flex gap-6 mt-6"
-              initial={{ opacity: 0 }}
+              initial={false}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
@@ -199,9 +211,11 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
+                  <Image
                     src={social.icon}
                     alt={social.label}
+                    width={28}
+                    height={28}
                     className="w-5 h-5 dark:invert md:w-7 md:h-7"
                   />
                 </motion.a>
@@ -211,10 +225,12 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
 
           <div>
             <motion.form
+              aria-busy={isSubmitting}
+              aria-describedby="contact-status"
               ref={formRef}
               onSubmit={handleSubmit}
               className={`relative rounded-4xl border border-border/50 bg-background/90 ${compact ? "p-6 sm:p-8" : "p-8"} shadow-[0_30px_120px_rgba(0,0,0,0.12)]`}
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
                 duration: 0.75,
@@ -222,7 +238,8 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 delay: 0.1,
               }}
             >
-              <NoiseTexture className="rounded-4xl" />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-4xl opacity-20 dark:opacity-75" style={{ backgroundImage: "url('/images/noise.webp')" }} />
+              <div className="hidden" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
 
               <div className={`grid gap-${compact ? "5" : "6"} sm:grid-cols-2`}>
                 <div>
@@ -234,6 +251,9 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                   </label>
                   <Input
                     id="fullName"
+                    name="fullName"
+                    autoComplete="name"
+                    maxLength={120}
                     type="text"
                     value={formData.fullName}
                     onChange={(e) =>
@@ -253,6 +273,9 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                   </label>
                   <Input
                     id="email"
+                    name="email"
+                    autoComplete="email"
+                    maxLength={254}
                     type="email"
                     value={formData.email}
                     onChange={(e) =>
@@ -273,6 +296,9 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 </label>
                 <Input
                   id="phone"
+                  name="phone"
+                  autoComplete="tel"
+                  maxLength={25}
                   type="tel"
                   value={formData.phone}
                   onChange={(e) =>
@@ -318,6 +344,8 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 </label>
                 <Textarea
                   id="message"
+                  name="message"
+                  maxLength={5000}
                   value={formData.message}
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
@@ -332,9 +360,9 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                   <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
                     {/* Ready to collaborate? */}
                   </p>
-                  {submitError ? (
-                    <p className="mt-2 text-sm text-destructive">{submitError}</p>
-                  ) : null}
+                  <p id="contact-status" role="status" aria-live="polite" aria-atomic="true" className={`mt-2 text-sm ${submitError ? "text-destructive" : "text-foreground"}`}>
+                    {submitError || (submitSuccess ? "Thank you. Your message has been sent successfully." : isSubmitting ? "Sending your message…" : "")}
+                  </p>
                 </div>
                 <RippleButton
                   type="submit"

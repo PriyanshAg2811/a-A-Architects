@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { FadeIn, TextReveal } from "./text-reveal";
 
 const projects = [

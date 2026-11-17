@@ -5,7 +5,6 @@ import { AboutSection } from "@/components/about-section";
 import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-import { NoiseTexture } from "@/components/ui/noise-texture";
 import { StructuredData } from "@/components/structured-data";
 import { businessId } from "@/lib/business";
 import type { Metadata } from "next";
@@ -26,13 +25,13 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "a+A Architects",
     type: "website",
-    images: [{ url: "/images/hero/hero-light.png", alt: "a+A Architects" }],
+    images: [{ url: "/images/hero/hero-light-1672.webp", alt: "a+A Architects" }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/images/hero/hero-light.png"],
+    images: ["/images/hero/hero-light-1672.webp"],
   },
 };
 
@@ -50,7 +49,7 @@ export default function Home() {
     <>
       <StructuredData data={websiteSchema} />
       <Header />
-      <main>
+      <main id="main-content">
         <HeroSection />
         <ProjectsHorizontalScroll />
         <AboutSection />

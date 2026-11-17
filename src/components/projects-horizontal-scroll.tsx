@@ -1,16 +1,23 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "./site-image";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { FadeIn, TextReveal } from "./text-reveal";
 import { projects } from "@/lib/projects";
 
 export function ProjectsHorizontalScroll() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [hasFocus, setHasFocus] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const visible = useInView(scrollContainerRef, { amount: 0.1 });
+  const prefersReducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reducedMotion = mounted && prefersReducedMotion;
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -22,7 +29,7 @@ export function ProjectsHorizontalScroll() {
 
       if (scrollLeft >= halfWidth) {
         container.scrollLeft = scrollLeft - halfWidth;
-      } else if (scrollLeft <= 0) {
+      } else if (scrollLeft < 0) {
         container.scrollLeft = scrollLeft + halfWidth;
       }
     };
@@ -37,19 +44,31 @@ export function ProjectsHorizontalScroll() {
 
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const step = 1.2;
-    const interval = window.setInterval(() => {
-      if (isPaused) return;
-      const { scrollLeft, scrollWidth } = container;
-      const halfWidth = scrollWidth / 2;
-      const next = scrollLeft + step;
-      container.scrollLeft = next >= halfWidth ? next - halfWidth : next;
-    }, 16);
-
-    return () => window.clearInterval(interval);
-  }, [isPaused]);
+    if (!container || !visible || isPaused || !isPlaying || hasFocus || reducedMotion) return;
+    let frame = 0;
+    let last = 0;
+    let position = container.scrollLeft;
+    let cycleWidth = container.scrollWidth / 2;
+    const resize = new ResizeObserver(() => { cycleWidth = container.scrollWidth / 2; });
+    resize.observe(container);
+    const tick = (time: number) => {
+      if (document.hidden) return;
+      if (last) position += Math.min(time - last, 40) * 0.075;
+      if (position >= cycleWidth) position -= cycleWidth;
+      container.scrollLeft = position;
+      last = time;
+      frame = requestAnimationFrame(tick);
+    };
+    const restart = () => {
+      cancelAnimationFrame(frame);
+      last = 0;
+      position = container.scrollLeft;
+      if (!document.hidden) frame = requestAnimationFrame(tick);
+    };
+    document.addEventListener("visibilitychange", restart);
+    restart();
+    return () => { cancelAnimationFrame(frame); resize.disconnect(); document.removeEventListener("visibilitychange", restart); };
+  }, [visible, isPaused, isPlaying, hasFocus, reducedMotion]);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;
@@ -60,7 +79,7 @@ export function ProjectsHorizontalScroll() {
         direction === "left"
           ? scrollLeft - scrollAmount
           : scrollLeft + scrollAmount,
-      behavior: "smooth",
+      behavior: reducedMotion ? "instant" : "smooth",
     });
   };
 
@@ -93,11 +112,13 @@ export function ProjectsHorizontalScroll() {
           className="relative"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setHasFocus(true)}
+          onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHasFocus(false); }}
         >
           <div
             ref={scrollContainerRef}
             className="flex gap-8 overflow-x-auto md:overflow-x-hidden pb-4 hide-scrollbar"
-            style={{ touchAction: "pan-x" }}
+            aria-label="Featured architecture projects"
             onPointerDown={() => setIsPaused(true)}
             onPointerUp={() => setIsPaused(false)}
             onPointerCancel={() => setIsPaused(false)}
@@ -106,6 +127,7 @@ export function ProjectsHorizontalScroll() {
               <HorizontalProjectCard
                 key={`${project.slug}-${index}`}
                 project={project}
+                duplicate={index >= mainProjects.length}
                 isHovered={hoveredProject === project.slug}
                 onHover={() => setHoveredProject(project.slug)}
                 onLeave={() => setHoveredProject(null)}
@@ -114,6 +136,8 @@ export function ProjectsHorizontalScroll() {
           </div>
 
           <button
+            type="button"
+            aria-label="Previous projects"
             onClick={() => scroll("left")}
             className="hidden md:inline-flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground items-center justify-center shadow-lg"
           >
@@ -133,6 +157,8 @@ export function ProjectsHorizontalScroll() {
           </button>
 
           <button
+            type="button"
+            aria-label="Next projects"
             onClick={() => scroll("right")}
             className="hidden md:inline-flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 w-10 h-10 rounded-full bg-primary text-primary-foreground items-center justify-center shadow-lg"
           >
@@ -149,6 +175,12 @@ export function ProjectsHorizontalScroll() {
                 d="M9 5l7 7-7 7"
               />
             </svg>
+          </button>
+        </div>
+
+        <div className="mt-4 flex justify-end">
+          <button type="button" className="min-h-11 px-3 text-xs uppercase tracking-widest text-muted-foreground underline underline-offset-4" aria-pressed={!isPlaying} onClick={() => setIsPlaying(!isPlaying)} disabled={!!reducedMotion}>
+            {reducedMotion ? "Automatic motion off" : isPlaying ? "Pause slideshow" : "Play slideshow"}
           </button>
         </div>
 
@@ -184,6 +216,7 @@ export function ProjectsHorizontalScroll() {
 }
 
 interface HorizontalProjectCardProps {
+  duplicate: boolean;
   project: (typeof projects)[0];
   isHovered: boolean;
   onHover: () => void;
@@ -191,13 +224,14 @@ interface HorizontalProjectCardProps {
 }
 
 function HorizontalProjectCard({
+  duplicate,
   project,
   isHovered,
   onHover,
   onLeave,
 }: HorizontalProjectCardProps) {
   return (
-    <Link href={`/projects/${project.slug}`} className="block">
+    <Link href={`/projects/${project.slug}`} prefetch={false} className="block" tabIndex={duplicate ? -1 : undefined} aria-hidden={duplicate || undefined}>
       <motion.article
         className="shrink-0 w-80 md:w-96 group cursor-pointer"
         onMouseEnter={onHover}
@@ -216,6 +250,7 @@ function HorizontalProjectCard({
               src={project.thumbnail}
               alt={project.title}
               fill
+              sizes="(max-width: 768px) 320px, 384px"
               className="object-cover transition-all duration-500 group-hover:scale-105 dark:brightness-75 dark:saturate-90"
             />
           </motion.div>

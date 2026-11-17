@@ -20,7 +20,7 @@ export function Footer({ hideBackToTop = false }: FooterProps) {
           <Link href="/" className="relative group">
             <motion.div
               className="flex items-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
@@ -44,8 +44,9 @@ export function Footer({ hideBackToTop = false }: FooterProps) {
 
           {/* Navigation */}
           <motion.nav
+            aria-label="Footer"
             className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted-foreground"
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -67,7 +68,7 @@ export function Footer({ hideBackToTop = false }: FooterProps) {
           {/* Copyright */}
           <motion.p
             className="text-xs text-muted-foreground"
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -79,7 +80,7 @@ export function Footer({ hideBackToTop = false }: FooterProps) {
         {!hideBackToTop && (
           <motion.div
             className="mt-8 pt-8 border-t border-border flex justify-center"
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
@@ -94,7 +95,7 @@ export function Footer({ hideBackToTop = false }: FooterProps) {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                animate={{ y: [0, -3, 0] }}
+                whileInView={{ y: [0, -3, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
                 <path

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, useSpring } from "framer-motion";
+import { useInView, useSpring, useReducedMotion } from "framer-motion";
 
 interface AnimatedCounterProps {
   value: number;
@@ -23,7 +23,8 @@ export function AnimatedCounter({
     margin: "-50px",
   });
   const [hasStarted, setHasStarted] = useState(false);
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(value);
+  const reducedMotion = useReducedMotion();
 
   const spring = useSpring(0, {
     duration: duration * 1000,
@@ -39,16 +40,16 @@ export function AnimatedCounter({
   }, [spring]);
 
   useEffect(() => {
-    if (isInView && !hasStarted) {
+    if (isInView && !hasStarted && !reducedMotion) {
       setHasStarted(true);
       spring.set(value);
     }
-  }, [isInView, hasStarted, spring, value]);
+  }, [isInView, hasStarted, spring, value, reducedMotion]);
 
   return (
     <span ref={ref} className={className}>
-      {displayValue}
-      {suffix}
+      <span className="sr-only">{value}{suffix}</span>
+      <span aria-hidden="true">{reducedMotion ? value : displayValue}{suffix}</span>
     </span>
   );
 }

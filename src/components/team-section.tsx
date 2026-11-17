@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "./site-image";
 import { motion } from "framer-motion";
 import {
   FadeIn,
@@ -41,12 +41,12 @@ export function TeamSection() {
               Co-Founders
             </p>
           </FadeIn>
-          {coFounders.map((cofounder, index) => (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24">
+          {coFounders.map((cofounder) => (
+              <div key={cofounder.name} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24">
                 {/* Co-Founder Image */}
                 <motion.div
                   className="relative aspect-square overflow-hidden rounded-lg"
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={false}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{
@@ -63,6 +63,7 @@ export function TeamSection() {
                     src={cofounder.image}
                     alt={cofounder.name}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
                 </motion.div>
@@ -137,64 +138,6 @@ export function TeamSection() {
   );
 }
 
-interface CoFounderCardProps {
-  cofounder: (typeof coFounders)[0];
-  index: number;
-}
-
-function CoFounderCard({ cofounder, index }: CoFounderCardProps) {
-  return (
-    <motion.div
-      className="group cursor-pointer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-        delay: index * 0.1,
-      }}
-    >
-      <motion.div
-        className="relative aspect-square overflow-hidden rounded-lg mb-4"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.4 }}
-      >
-        <Image
-          src={cofounder.image}
-          alt={cofounder.name}
-          fill
-          className="object-cover"
-        />
-        <motion.div
-          className="absolute inset-0 bg-foreground/20"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
-
-      <div className="overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-h-72 group-hover:opacity-100">
-        <div className="mb-3">
-          <h4 className="text-lg font-medium">{cofounder.name}</h4>
-          <p className="text-sm text-accent uppercase tracking-widest mb-2">
-            {cofounder.position}
-          </p>
-          <p className="text-sm text-muted-foreground">{cofounder.bio}</p>
-        </div>
-      </div>
-
-      {/* Always visible info */}
-      <div className="group-hover:hidden">
-        <h4 className="text-lg font-medium">{cofounder.name}</h4>
-        <p className="text-sm text-accent uppercase tracking-widest">
-          {cofounder.position}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
 interface TeamMemberCardProps {
   member: TeamMember;
   index: number;
@@ -204,7 +147,7 @@ function TeamMemberCard({ member, index }: TeamMemberCardProps) {
   return (
     <motion.div
       className="group cursor-pointer"
-      initial={{ opacity: 0, y: 30 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{
@@ -222,6 +165,7 @@ function TeamMemberCard({ member, index }: TeamMemberCardProps) {
           src={member.image}
           alt={member.name}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover"
         />
         <motion.div

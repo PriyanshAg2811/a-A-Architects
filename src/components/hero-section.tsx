@@ -34,7 +34,7 @@ export function HeroSection() {
           style={{ scale: imageScale }}
           className="relative w-full h-full bg-cover bg-center"
         >
-          <div className="absolute inset-0 bg-[url('/images/hero/hero-light.png')] dark:bg-[url('/images/hero/hero-dark.png')] bg-cover bg-center" />
+          <div className="hero-artwork absolute inset-0 bg-cover bg-center" />
         </motion.div>
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30"

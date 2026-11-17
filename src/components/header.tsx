@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
   AnimatePresence,
@@ -24,7 +24,8 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -50,8 +51,26 @@ export function Header() {
   }, [isMenuOpen]);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (!isMenuOpen) return;
+    const menu = menuRef.current;
+    const frame = requestAnimationFrame(() => menu?.querySelector<HTMLElement>('a, button')?.focus());
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setIsMenuOpen(false); menuButtonRef.current?.focus(); }
+      if (event.key !== "Tab" || !menu) return;
+      const controls = [...menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
+      const first = controls[0]; const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    const background = [...document.querySelectorAll<HTMLElement>('main, footer')];
+    const previous = background.map(element => element.inert);
+    background.forEach(element => { element.inert = true; });
+    document.addEventListener('keydown', handleKey);
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const closeOnDesktop = () => { if (desktop.matches) setIsMenuOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => { cancelAnimationFrame(frame); desktop.removeEventListener('change', closeOnDesktop); document.removeEventListener('keydown', handleKey); background.forEach((element, i) => { element.inert = previous[i]; }); };
+  }, [isMenuOpen]);
 
   return (
     <>
@@ -62,14 +81,14 @@ export function Header() {
             : "bg-transparent"
         }`}
         initial={{ y: 0 }}
-        animate={{ y: isHidden ? -100 : 0 }}
+        animate={{ y: isHidden && !isMenuOpen ? -100 : 0 }}
         transition={{ duration: 0.3 }}
       >
-        <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <nav aria-label="Primary" className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="relative group">
             <motion.div
               className="flex items-center gap-4"
-              initial={{ opacity: 0, y: -10 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
@@ -100,7 +119,7 @@ export function Header() {
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, y: -10 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
@@ -114,7 +133,7 @@ export function Header() {
               </motion.div>
             ))}
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: navLinks.length * 0.1 }}
               className="flex flex-col items-center gap-1"
@@ -128,11 +147,14 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
             <Button
+              ref={menuButtonRef}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
               variant="ghost"
               size="sm"
               className="md:hidden relative w-10 h-10 p-0"
@@ -174,8 +196,13 @@ export function Header() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            ref={menuRef}
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Main navigation"
             className="fixed inset-0 z-40 md:hidden bg-background"
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
@@ -184,7 +211,7 @@ export function Header() {
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ delay: index * 0.1 }}
@@ -202,7 +229,7 @@ export function Header() {
               {/* Contact Info in Mobile Menu */}
               <motion.div
                 className="mt-12 text-center"
-                initial={{ opacity: 0 }}
+                initial={false}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
@@ -232,6 +259,7 @@ export function Header() {
                     text="Toggle Theme"
                   />
                 </div>
+                <button type="button" className="min-h-11 px-3 text-sm underline underline-offset-4" onClick={() => { setIsMenuOpen(false); menuButtonRef.current?.focus(); }}>Close menu</button>
               </motion.div>
             </div>
           </motion.div>

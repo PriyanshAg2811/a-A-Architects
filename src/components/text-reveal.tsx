@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, ReactNode } from "react";
-import { motion, useInView } from "framer-motion";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface TextRevealProps {
   children: ReactNode;
@@ -14,14 +14,12 @@ export function TextReveal({
   className = "",
   delay = 0,
 }: TextRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
-    <div ref={ref} className={`overflow-hidden ${className}`}>
+    <div className={`overflow-hidden ${className}`}>
       <motion.div
-        initial={{ y: "100%" }}
-        animate={isInView ? { y: 0 } : { y: "100%" }}
+        initial={false}
+        whileInView={{ y: [12, 0] }}
+        viewport={{ once: true }}
         transition={{
           duration: 0.8,
           ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
@@ -47,9 +45,6 @@ export function FadeIn({
   delay = 0,
   direction = "up",
 }: FadeInProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   const directionOffset = {
     up: { y: 40, x: 0 },
     down: { y: -40, x: 0 },
@@ -60,16 +55,9 @@ export function FadeIn({
 
   return (
     <motion.div
-      ref={ref}
-      initial={{
-        opacity: 0,
-        ...directionOffset[direction],
-      }}
-      animate={
-        isInView
-          ? { opacity: 1, y: 0, x: 0 }
-          : { opacity: 0, ...directionOffset[direction] }
-      }
+      initial={false}
+      whileInView={{ opacity: [0.85, 1], y: [directionOffset[direction].y, 0], x: [directionOffset[direction].x, 0] }}
+      viewport={{ once: true }}
       transition={{
         duration: 0.8,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
@@ -93,14 +81,11 @@ export function StaggerChildren({
   className = "",
   staggerDelay = 0.1,
 }: StaggerChildrenProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={false}
+      whileInView="visible"
+      viewport={{ once: true }}
       variants={{
         hidden: { opacity: 0 },
         visible: {

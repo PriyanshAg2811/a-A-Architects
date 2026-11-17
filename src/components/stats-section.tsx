@@ -2,7 +2,6 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import { Marquee } from "./marquee";
 
 const stats = [

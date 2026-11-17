@@ -1,53 +1,39 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "./site-image";
 import Link from "next/link";
-import { useMemo, useState, useEffect, useLayoutEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useMemo, useState, useEffect } from "react";
 import { projects, ProjectCategory } from "@/lib/projects";
 import { motion } from "framer-motion";
 
 export function ProjectsSection() {
-  const router = useRouter();
-  const pathname = usePathname();
 
   const categories = useMemo(() => ["All", ...Object.values(ProjectCategory)], []);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  useLayoutEffect(() => {
-    try {
-      const params = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
-      const urlCat = params.get("category");
-      if (urlCat && categories.includes(urlCat)) {
-        setSelectedCategory(urlCat);
-        return;
-      }
-    } catch (e) {
-      // ignore
-    }
-    setSelectedCategory("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  useEffect(() => {
+    const syncCategory = () => {
+      const category = new URLSearchParams(window.location.search).get("category");
+      setSelectedCategory(category && categories.includes(category) ? category : "All");
+    };
+    syncCategory();
+    window.addEventListener("popstate", syncCategory);
+    return () => window.removeEventListener("popstate", syncCategory);
   }, [categories]);
 
-  // keep URL in sync with selection
-
-  useEffect(() => {
-    if (selectedCategory === null) return;
-    try {
-      // reflect selection in the URL without adding history entries
-      const catParam = selectedCategory && selectedCategory !== "All" ? `?category=${encodeURIComponent(selectedCategory)}` : "";
-      router.replace(`${pathname}${catParam}`);
-    } catch (e) {
-      // ignore
-    }
-  }, [selectedCategory, pathname, router]);
+  const selectCategory = (category: string) => {
+    setSelectedCategory(category);
+    const url = new URL(window.location.href);
+    if (category === "All") url.searchParams.delete("category");
+    else url.searchParams.set("category", category);
+    window.history.replaceState(null, "", url);
+  };
 
   const visibleProjects = useMemo(() => {
     if (selectedCategory === "All") return projects;
     return projects.filter((p) => p.category.includes(selectedCategory as ProjectCategory));
   }, [selectedCategory]);
-
-  if (selectedCategory === null) return null;
 
   return (
     <motion.section style={{ fontFamily: "var(--font-display)" }} className="min-h-screen bg-card text-foreground py-20 px-6">
@@ -83,7 +69,8 @@ export function ProjectsSection() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => selectCategory(cat)}
+                aria-pressed={selectedCategory === cat}
                 className={`text-sm uppercase tracking-[0.25em] px-3 py-1 border rounded-sm transition ${selectedCategory === cat ? 'bg-foreground text-background' : 'text-muted-foreground border-border hover:bg-foreground/10 hover:text-foreground'} cursor-pointer`}
               >
                 {cat}
@@ -93,11 +80,12 @@ export function ProjectsSection() {
 
           {/* Mobile dropdown */}
           <div className="md:hidden">
-            <label className="sr-only">Select category</label>
+            <label htmlFor="project-category" className="sr-only">Select category</label>
             <div className="relative">
               <select
+                id="project-category"
                 value={selectedCategory ?? 'All'}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                onChange={(e) => selectCategory(e.target.value)}
                 className="w-full bg-card text-foreground border border-border px-4 py-2 rounded-sm appearance-none text-sm uppercase tracking-[0.25em] shadow-sm focus:outline-none focus:ring-2 focus:ring-muted-foreground"
               >
                 {categories.map((cat) => (
@@ -118,12 +106,17 @@ export function ProjectsSection() {
             <motion.div
               key={project.slug}
               className="h-full"
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.03 }}
             >
               <Link
+                prefetch={false}
+                onPointerEnter={() => { if (window.matchMedia("(hover: hover)").matches) setHoveredProject(project.slug); }}
+                onPointerLeave={() => setHoveredProject(null)}
+                onFocus={() => setHoveredProject(project.slug)}
+                onBlur={() => setHoveredProject(null)}
                 href={`/projects/${project.slug}${selectedCategory && selectedCategory !== "All" ? `?category=${encodeURIComponent(selectedCategory)}` : ""}`}
                 className="group block h-full bg-card overflow-hidden border border-border transition duration-300 hover:-translate-y-1 hover:border-muted-foreground/60"
                 data-cursor="View"
@@ -133,16 +126,16 @@ export function ProjectsSection() {
                     src={project.thumbnail}
                     alt={project.title}
                     fill
-                    loading="eager"
+                    loading={index < 2 ? "eager" : "lazy"}
                     className="object-cover transition-all duration-500 group-hover:scale-105 dark:brightness-75 dark:saturate-90"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) 50vw, 33vw"
                   />
-                  {project.hoverImage ? (
+                  {project.hoverImage && hoveredProject === project.slug ? (
                     <Image
                       src={project.hoverImage}
                       alt={`${project.title} hover`}
                       fill
-                      className="absolute inset-0 object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      className="absolute inset-0 object-cover animate-in fade-in duration-500"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : null}

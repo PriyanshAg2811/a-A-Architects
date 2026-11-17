@@ -1,14 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedCounter } from "./animated-counter";
 import {
   FadeIn,
   TextReveal,
-  StaggerChildren,
-  staggerChildVariants,
 } from "./text-reveal";
 import { aboutStats } from "@/lib/team";
 
@@ -20,24 +17,6 @@ export function AboutSection() {
   });
 
   const lineScale = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const updateTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
-    };
-
-    updateTheme();
-
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -65,7 +44,7 @@ export function AboutSection() {
               {aboutStats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -103,7 +82,7 @@ export function AboutSection() {
           {/* Right Column */}
           <div className="flex flex-col justify-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{

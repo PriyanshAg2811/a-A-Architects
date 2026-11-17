@@ -63,7 +63,7 @@ test('service disclosures support keyboard and retain expanded content', async (
   await expect(page.locator('#service-01 details')).not.toHaveAttribute('open');
 });
 
-test('reduced motion stops automatic carousel movement', async ({ page }) => {
+test('reduced motion stops autoplay while manual carousel controls still work', async ({ page, isMobile }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   const carousel = page.getByLabel('Featured architecture projects');
@@ -72,6 +72,14 @@ test('reduced motion stops automatic carousel movement', async ({ page }) => {
   const before = await carousel.evaluate(element => element.scrollLeft);
   await page.waitForTimeout(1000);
   expect(await carousel.evaluate(element => element.scrollLeft)).toBe(before);
+  if (!isMobile) {
+    await carousel.evaluate(element => { element.scrollLeft = 0; });
+    await page.getByRole('button', { name: 'Previous projects' }).click();
+    await expect.poll(() => carousel.evaluate(element => element.scrollLeft)).toBeGreaterThan(0);
+    const previousPosition = await carousel.evaluate(element => element.scrollLeft);
+    await page.getByRole('button', { name: 'Next projects' }).click();
+    await expect.poll(() => carousel.evaluate(element => element.scrollLeft)).not.toBe(previousPosition);
+  }
 });
 
 test('enquiry feedback preserves data on failure and confirms mocked success', async ({ page }) => {

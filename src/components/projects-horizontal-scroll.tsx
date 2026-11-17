@@ -71,14 +71,19 @@ export function ProjectsHorizontalScroll() {
   }, [visible, isPaused, isPlaying, hasFocus, reducedMotion]);
 
   const scroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
-    const { scrollLeft, clientWidth } = scrollContainerRef.current;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const { scrollLeft, clientWidth } = container;
     const scrollAmount = clientWidth * 0.75;
-    scrollContainerRef.current.scrollTo({
-      left:
-        direction === "left"
-          ? scrollLeft - scrollAmount
-          : scrollLeft + scrollAmount,
+    let target = direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
+    if (target < 0) {
+      // Move to the equivalent end of the loop before travelling backwards.
+      const cycleWidth = container.scrollWidth / 2;
+      container.scrollLeft = cycleWidth - 1;
+      target += cycleWidth;
+    }
+    container.scrollTo({
+      left: target,
       behavior: reducedMotion ? "instant" : "smooth",
     });
   };
@@ -119,7 +124,7 @@ export function ProjectsHorizontalScroll() {
             ref={scrollContainerRef}
             className="flex gap-8 overflow-x-auto md:overflow-x-hidden pb-4 hide-scrollbar"
             aria-label="Featured architecture projects"
-            onPointerDown={() => setIsPaused(true)}
+            onPointerDown={(event) => { setIsPaused(true); if (event.pointerType === "touch") setIsPlaying(false); }}
             onPointerUp={() => setIsPaused(false)}
             onPointerCancel={() => setIsPaused(false)}
           >

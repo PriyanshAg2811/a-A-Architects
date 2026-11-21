@@ -4,6 +4,7 @@ import { ProjectsHorizontalScroll } from "@/components/projects-horizontal-scrol
 import { AboutSection } from "@/components/about-section";
 import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
+import { ChoosingArchitect } from "@/components/choosing-architect";
 import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
 import { businessId } from "@/lib/business";
@@ -54,6 +55,7 @@ export default function Home() {
         <ProjectsHorizontalScroll />
         <AboutSection />
         <ServicesSection />
+        <ChoosingArchitect />
         <ContactSection />
       </main>
       <Footer />

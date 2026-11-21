@@ -2,6 +2,11 @@ import Link from "next/link";
 
 const questions = [
   {
+    question: "How do I choose the best architect in Lucknow for my project?",
+    answer:
+      "Compare portfolios for projects similar to yours, speak with the design team and ask for client references where available. Discuss your site, budget and priorities, then compare written scopes covering drawings, revisions, approval assistance, site visits, fees and exclusions. The best fit depends on your project and how you prefer to work. You can explore our projects and discuss your brief with our Gomtinagar studio using the links below.",
+  },
+  {
     question: "Where is a+A Architects based, and where do you work?",
     answer:
       "Our studio is in Gomtinagar, Lucknow. We provide architecture and design services to clients across Uttar Pradesh and throughout India. Share your project location and requirements with us to discuss how we can help.",
